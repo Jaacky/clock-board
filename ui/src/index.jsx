@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Registration from './containers/Registration.jsx';
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -30,8 +32,16 @@ class App extends React.Component {
 
         return (
             <div>
+                <Registration/>
+                Plzz
                 {clocks.map(clock => {
-                    return <h2>{clock.end}</h2>
+                    const end = new Date(clock.end);
+                    return (
+                        <div key={clock.end}>
+                            <h2>{clock.end}</h2>
+                            <h2>{end.getFullYear()}-{end.getMonth() + 1}-{end.getDate()} / {end.getHours()}:{end.getMinutes()}</h2>
+                        </div>
+                    )
                 }
                 )}
             </div>
