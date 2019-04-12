@@ -4,6 +4,8 @@ import indexRouter from './routes/index';
 import clocksRouter from './routes/clocks';
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 var users = {
     "1": {
@@ -18,6 +20,7 @@ app.use('/', indexRouter);
 app.use('/clocks', clocksRouter);
 
 app.get('/:userId', (req, res) => {
+    console.log("Request made");
     if (req.params) {
         let userId = req.params.userId;
         if (userId in users) {
