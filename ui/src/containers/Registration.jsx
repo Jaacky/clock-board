@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../scss/styles.scss';
+
 export default class Registration extends React.Component {
     constructor(props) {
         super(props);
@@ -54,6 +56,7 @@ export default class Registration extends React.Component {
             <form onSubmit={this.handleSubmit}>
                 <label>Email:</label>
                 <input
+                    autoFocus
                     name="email"
                     type="email"
                     value={this.state.email}
@@ -109,10 +112,13 @@ export default class Registration extends React.Component {
     }
 
     render() {
+        console.log("New user: ", this.newUser === null);
         return (
             <div>
-                {this.renderForm()}
-                {this.renderConfirmationForm()}
+                {this.state.newUser === null 
+                    ? this.renderForm()
+                    : this.renderConfirmationForm()
+                }
             </div>
         )
     }
