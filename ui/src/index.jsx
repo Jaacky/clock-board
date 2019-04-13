@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Registration from './containers/Registration.jsx';
+import Dashboard from './containers/Dashboard.jsx';
 
 class App extends React.Component {
     constructor(props) {
@@ -33,6 +34,7 @@ class App extends React.Component {
         return (
             <div>
                 <Registration/>
+                <Dashboard/>
                 Plzz
                 {clocks.map(clock => {
                     const end = new Date(clock.end);
