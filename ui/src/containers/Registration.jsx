@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../scss/styles.scss';
+import styles from '../scss/styles.scss';
 
 export default class Registration extends React.Component {
     constructor(props) {
@@ -52,8 +52,9 @@ export default class Registration extends React.Component {
     }
 
     renderForm() {
+        console.log(styles);
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form class={styles.form} onSubmit={this.handleSubmit}>
                 <label>Email:</label>
                 <input
                     autoFocus
