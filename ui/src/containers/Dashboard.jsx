@@ -55,8 +55,6 @@ export default class Dashboard extends React.Component {
                 <Clock endTime={clock.endTime}/>
             ))
 
-        console.log("After mapping", clocks);
-
         let testClocks = [
             <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
             <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
@@ -67,8 +65,7 @@ export default class Dashboard extends React.Component {
         ]
         return (
             <div>
-                Dashboard
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} className={styles.form}>
                     <input
                         name="countdownEndDate"
                         type="date"
@@ -88,7 +85,6 @@ export default class Dashboard extends React.Component {
                     </button>
                 </form>
 
-                Clocks:
                 <div className={styles.clocks}>
                     {testClocks}
                     {clocks}

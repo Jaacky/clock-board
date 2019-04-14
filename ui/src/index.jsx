@@ -35,8 +35,7 @@ class App extends React.Component {
             <div>
                 <Registration/>
                 <Dashboard/>
-                Plzz
-                {clocks.map(clock => {
+                {/* {clocks.map(clock => {
                     const end = new Date(clock.end);
                     return (
                         <div key={clock.end}>
@@ -45,7 +44,7 @@ class App extends React.Component {
                         </div>
                     )
                 }
-                )}
+                )} */}
             </div>
         )
     }
