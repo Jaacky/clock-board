@@ -4,6 +4,7 @@ import { awsKeys, clientId } from '../config/aws';
 
 const router = express.Router();
 
+// https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.js
 router.post('/clocks', (req, res) => {
     let token = req.body.token;
     console.log("Token passed to authenticated: ", token);

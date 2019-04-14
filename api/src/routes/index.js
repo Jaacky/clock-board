@@ -127,7 +127,7 @@ router.post('/forgot-password', (req, res, next) => {
             });
         }
     })
-
+    // TODO: this bit is for sending the forgot password request to AWS, the input verification needs to be manunal from user
     // cognitoUser.forgotPassword({
     //     onSuccess: (data) => {
     //         console.log("CodeDeliveryData from forgot password: ", data);
