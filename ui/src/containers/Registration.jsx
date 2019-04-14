@@ -54,7 +54,7 @@ export default class Registration extends React.Component {
     renderForm() {
         console.log(styles);
         return (
-            <form class={styles.form} onSubmit={this.handleSubmit}>
+            <form className={styles.form} onSubmit={this.handleSubmit}>
                 <label>Email:</label>
                 <input
                     autoFocus

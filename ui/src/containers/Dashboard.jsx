@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styles from '../scss/styles.scss';
+
 import Clock from '../components/Clock.jsx';
 
 export default class Dashboard extends React.Component {
@@ -27,14 +29,15 @@ export default class Dashboard extends React.Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-
-        let date = new Date(this.state.countdownEndDate)
+        console.log("this.state.countdownEndDate: ", this.state.countdownEndDate);
+        console.log("this.state.countdownEndTime: ", this.state.countdownEndTime);
+        let year = this.state.countdownEndDate.slice(0, 4);
+        let month = this.state.countdownEndDate.slice(5, 7) - 1;
+        let day = this.state.countdownEndDate.slice(8);
         let hours = this.state.countdownEndTime.slice(0, 2)
         let minutes = this.state.countdownEndTime.slice(3)
-        date.setHours(hours)
-        date.setMinutes(minutes)
 
-        console.log(date.toISOString());
+        let date = new Date(year, month, day, hours, minutes);
         let clock = { endTime: date }
 
         this.setState({
@@ -53,6 +56,15 @@ export default class Dashboard extends React.Component {
             ))
 
         console.log("After mapping", clocks);
+
+        let testClocks = [
+            <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
+            <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
+            <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
+            <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
+            <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
+            <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />
+        ]
         return (
             <div>
                 Dashboard
@@ -77,8 +89,10 @@ export default class Dashboard extends React.Component {
                 </form>
 
                 Clocks:
-
-                {clocks}
+                <div className={styles.clocks}>
+                    {testClocks}
+                    {clocks}
+                </div>
             </div>
         )
     }

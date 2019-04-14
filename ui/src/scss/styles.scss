@@ -5,3 +5,29 @@ form {
 .form {
     background-color: lightcoral;
 }
+
+.clocks {
+    display: flex;
+}
+
+.clock {
+    display: inline-block;
+    margin: 5px;
+    padding: 25px;
+    background-color: lightseagreen;
+    box-shadow: 0px 1px 5px hsla(0, 0%, 0%, 0.15);
+    border-radius: 3px;
+
+    * {
+        text-align: center;
+    }
+
+    .time {
+        display: inline-block;
+        padding: 6px;
+
+        div {
+            padding: 3px;
+        }
+    }
+}
