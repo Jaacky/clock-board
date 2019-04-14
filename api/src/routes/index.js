@@ -1,5 +1,5 @@
 import express from 'express';
-import { CognitoUser } from 'amazon-cognito-identity-js';
+import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 
 import { userPool } from '../config/aws';
 
@@ -26,10 +26,20 @@ router.post('/signup', (req, res, next) => {
             console.log(err);
             if (err.code == 'UsernameExistsException') {
                 // Username already exists
+                res.status(409).json({
+                    error: "Email is already used",
+                });
             }
             // Invalid sign up
+            res.status(400).json({
+                error: "Error signing up, please try again",
+            })
             return;
         }
+        console.log("Successful signup, result: ", result);
+        res.status(201).json({
+            message: "Successful signup",
+        });
         // Return successful sign up event
     });
 });
@@ -46,10 +56,106 @@ router.post('/verify', (req, res, next) => {
     cognitoUser.confirmRegistration(verificationCode, true, (err, result) => {
         if (err) {
             console.log("err.message: " + err.message + " // err: " + JSON.stringify(err));
+            res.status(401).json({
+                error: "Invalid verification",
+            });
         }
         console.log('verification call result: ' + result);
+        res.status(200).json({
+            message: "Successful verification",
+        });
         // Return successful verification
     });
-})
+});
+
+router.post('/signin', (req, res, next) => {
+    let email = req.body.email;
+    let password = req.body.password;
+    console.log(`email: ${email}, password: ${password}`);
+
+    let authentcationDetails = new AuthenticationDetails({
+        Username: email,
+        Password: password,
+    });
+
+    let cognitoUser = new CognitoUser({
+        Username: email,
+        Pool: userPool,
+    });
+
+    cognitoUser.authenticateUser(authentcationDetails, {
+        onSuccess: (result) => {
+            console.log("Successful signin: ", result);
+            let accessToken = result.getAccessToken().getJwtToken();
+            res.status(200).json({
+                token: accessToken,
+            });
+        },
+        onFailure: (err) => {
+            console.log("Error signing in: ", err);
+            res.status(401).json({
+                error: "Unauthorized",
+            });
+        },
+    });
+});
+
+router.post('/forgot-password', (req, res, next) => {
+    console.log("Forgot password POST call");
+    let email = req.body.email;
+    let code = req.body.code;
+    let newPassword = req.body.newPassword;
+
+    let cognitoUser = new CognitoUser({
+        Username: email,
+        Pool: userPool,
+    });
+
+    cognitoUser.confirmPassword(code, newPassword, {
+        onSuccess: () => {
+            console.log("Password confirmed!");
+            res.status(201).json({
+                message: "Successfully changed password",
+            });
+        },
+        onFailure: (err) => {
+            console.log("Password not confirmed");
+            res.status(400).json({
+                error: "Unsuccessfully changed password",
+            });
+        }
+    })
+
+    // cognitoUser.forgotPassword({
+    //     onSuccess: (data) => {
+    //         console.log("CodeDeliveryData from forgot password: ", data);
+    //     },
+    //     onFailure: (err) => {
+    //         res.status(400).json({
+    //             error: "Error reseting password"
+    //         });
+    //     },
+    //     inputVerificationCode: (data) => {
+    //         console.log("Code sent to: ", data);
+    //         let code = req.body.code;
+    //         let newPassword = req.body.newPassword;
+
+    //         // cognitoUser.confirmPassword(code, newPassword, {
+    //         //     onSuccess: () => {
+    //         //         console.log("Password confirmed!");
+    //         //         res.status(201).json({
+    //         //             message: "Successfully changed password",
+    //         //         });
+    //         //     },
+    //         //     onFailure: (err) => {
+    //         //         console.log("Password not confirmed");
+    //         //         res.status(400).json({
+    //         //             error: "Unsuccessfully changed password",
+    //         //         });
+    //         //     }
+    //         // })
+    //     }
+    // })
+});
 
 export default router;
