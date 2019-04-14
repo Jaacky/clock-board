@@ -2,6 +2,7 @@ import express from 'express';
 
 import indexRouter from './routes/index';
 import clocksRouter from './routes/clocks';
+import authenticatedRouter from './routes/authenticated';
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,7 @@ var users = {
 
 app.use('/', indexRouter);
 app.use('/clocks', clocksRouter);
+app.use('/authenticated', authenticatedRouter);
 
 app.get('/:userId', (req, res) => {
     console.log("Request made");

@@ -87,8 +87,10 @@ router.post('/signin', (req, res, next) => {
         onSuccess: (result) => {
             console.log("Successful signin: ", result);
             let accessToken = result.getAccessToken().getJwtToken();
+            let idToken = result.getIdToken().getJwtToken();
             res.status(200).json({
-                token: accessToken,
+                accessToken,
+                idToken
             });
         },
         onFailure: (err) => {
