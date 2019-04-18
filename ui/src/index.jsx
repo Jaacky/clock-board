@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Registration from './containers/Registration.jsx';
+import Login from './containers/Login.jsx';
 import Dashboard from './containers/Dashboard.jsx';
 
 class App extends React.Component {
@@ -25,6 +26,7 @@ class App extends React.Component {
                 console.log(JSON.stringify(json));
             });
     }
+
     render() {
         const { clocks, isLoading } = this.state;
         if (isLoading) {
@@ -34,6 +36,7 @@ class App extends React.Component {
         return (
             <div>
                 <Registration/>
+                <Login/>
                 <Dashboard/>
                 {/* {clocks.map(clock => {
                     const end = new Date(clock.end);
