@@ -1,10 +1,10 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
 import styles from '../scss/styles.scss';
 
 import Clock from '../components/Clock.jsx';
 
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
     constructor(props) {
         super(props);
 
@@ -29,8 +29,8 @@ export default class Dashboard extends React.Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("this.state.countdownEndDate: ", this.state.countdownEndDate);
-        console.log("this.state.countdownEndTime: ", this.state.countdownEndTime);
+        // console.log("this.state.countdownEndDate: ", this.state.countdownEndDate);
+        // console.log("this.state.countdownEndTime: ", this.state.countdownEndTime);
         let year = this.state.countdownEndDate.slice(0, 4);
         let month = this.state.countdownEndDate.slice(5, 7) - 1;
         let day = this.state.countdownEndDate.slice(8);
@@ -93,3 +93,16 @@ export default class Dashboard extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    console.log("state update in dashboard");
+    return {
+
+    }
+}
+
+const DashboardContainer = connect(
+    mapStateToProps,
+)(Dashboard);
+
+export default DashboardContainer;

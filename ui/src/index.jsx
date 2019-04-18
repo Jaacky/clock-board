@@ -1,56 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
-import Registration from './containers/Registration.jsx';
-import Login from './containers/Login.jsx';
-import Dashboard from './containers/Dashboard.jsx';
+import configureStore from 'store';
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
+import App from "App";
 
-        this.state = {
-            clocks: [],
-            isLoading: false,
-        };
-    }
+let store = configureStore();
 
-    componentDidMount() {
-        this.setState({ isLoading: true });
-        fetch("/api/1")
-            .then((response) => {
-                return response.json();
-            })
-            .then((json) => {
-                this.setState({clocks: json.clocks, isLoading: false});
-                console.log(JSON.stringify(json));
-            });
-    }
-
-    render() {
-        const { clocks, isLoading } = this.state;
-        if (isLoading) {
-            return <p>Loading...</p>
-        }
-
-        return (
-            <div>
-                <Registration/>
-                <Login/>
-                <Dashboard/>
-                {/* {clocks.map(clock => {
-                    const end = new Date(clock.end);
-                    return (
-                        <div key={clock.end}>
-                            <h2>{clock.end}</h2>
-                            <h2>{end.getFullYear()}-{end.getMonth() + 1}-{end.getDate()} / {end.getHours()}:{end.getMinutes()}</h2>
-                        </div>
-                    )
-                }
-                )} */}
-            </div>
-        )
-    }
-}
-
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(
+    <Provider store={store}>
+        <App/>
+    </Provider>,
+    document.getElementById('app')
+);
