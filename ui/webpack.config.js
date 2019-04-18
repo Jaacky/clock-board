@@ -19,6 +19,10 @@ module.exports = {
         path: path.join(__dirname, "dist"),
         filename: '[name].js'
     },
+    resolve: {
+        modules: ['node_modules', 'src'],
+        extensions: ['.css', 'scss', '.js', '.jsx']
+    },
     module: {
         rules: [
             {
