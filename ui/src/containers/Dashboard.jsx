@@ -48,7 +48,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        console.log(this.state.clocks);
+        // console.log(this.state.clocks);
         let clocks = this.state.clocks.length == 0
             ? <p>Please add a clock</p>
             : this.state.clocks.map((clock) => (
@@ -95,7 +95,7 @@ class Dashboard extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("state update in dashboard");
+    console.log("state update in dashboard", state);
     return {
 
     }

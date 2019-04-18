@@ -52,7 +52,6 @@ export default class Registration extends React.Component {
     }
 
     renderForm() {
-        console.log(styles);
         return (
             <form className={styles.form} onSubmit={this.handleSubmit}>
                 <label>Email:</label>

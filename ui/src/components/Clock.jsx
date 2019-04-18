@@ -18,9 +18,9 @@ export default class Clock extends React.Component {
     tick = () => {
         let now = new Date();
         let difference = new Date(this.props.endTime - now);
-        console.log("Now: ", now);
-        console.log("this.props.endtime: ", this.props.endTime);
-        console.log("now >= this.props.endTime: ", now >= this.props.endTime);
+        // console.log("Now: ", now);
+        // console.log("this.props.endtime: ", this.props.endTime);
+        // console.log("now >= this.props.endTime: ", now >= this.props.endTime);
         if (now >= this.props.endTime) {
             clearInterval(this.intervalId);
             this.setState({ end: true });

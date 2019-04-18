@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Registration from './containers/Registration';
-import Login from './containers/Login';
+import Header from './containers/Header';
 import Dashboard from './containers/Dashboard';
 
 class App extends React.Component {
@@ -13,8 +12,7 @@ class App extends React.Component {
     render() {
         return(
             <div>
-                <Registration/>
-                <Login/>
+                <Header />
                 <Dashboard/>
             </div>
         )
@@ -23,8 +21,9 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log("state in app", state);
     return {
-        users: state.users,
+        user: state.user,
     }
 }
 

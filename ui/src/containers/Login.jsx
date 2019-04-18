@@ -1,12 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-export default class Login extends React.Component {
+import { login } from 'actions';
+
+class Login extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             isLoading: false,
-            idtoken: "",
         };
     }
 
@@ -29,9 +31,8 @@ export default class Login extends React.Component {
             if (response.ok) {
                 let json = await response.json();
                 console.log("json response from submit", json);
-                this.setState({
-                    "idToken": json.idToken,
-                });
+
+                this.props.login({idToken: json.idToken});
             } else {
                 // Login unsuccessful
             }
@@ -39,8 +40,9 @@ export default class Login extends React.Component {
             console.log("Network err in post request", err);
         }
 
-        this.setState({ isLoading: false });
+        // this.setState({ isLoading: false });
     }
+
     render() {
         return(
             <div>
@@ -55,3 +57,24 @@ export default class Login extends React.Component {
         )
     }
 }
+
+export default Login;
+// const mapStateToProps = (state) => {
+//     console.log("state in login", state);
+//     return {}
+// }
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         login: (user) => {
+//             dispatch(login(user));
+//         },
+//     }
+// }
+
+// const LoginContainer = connect(
+//     mapStateToProps,
+//     mapDispatchToProps,
+// )(Login);
+
+// export default LoginContainer;
