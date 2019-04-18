@@ -2,6 +2,8 @@ import express from 'express';
 import jose from 'node-jose';
 import { awsKeys, clientId } from '../config/aws';
 
+import { getClocks } from '../db/db';
+
 const router = express.Router();
 
 const authenticated = (req, res, next) => {
@@ -54,7 +56,8 @@ const authenticated = (req, res, next) => {
                 });
                 return
             }
-
+            req.jwt = token;
+            req.jwtClaims = claims;
             next();
         })
         .catch(() => {
@@ -69,14 +72,18 @@ const authenticated = (req, res, next) => {
 router.use(authenticated);
 
 // https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.js
-router.post('/clocks', (req, res) => {
-    res.status(200).json({
-        "clocks": [
-            {"end": new Date("April 20 2019 12:30")},
-            {"end": new Date("April 11 2019 23:58")}
-        ],
-    });
-    return
+router.post('/clocks', async (req, res) => {
+    try {
+        let clocks = await getClocks(req.jwtClaims.email);
+        res.status(200).json({
+            "clocks": clocks
+        });
+    } catch(err) {
+        console.log("err in post clock catch block: ", err);
+        res.status(500).json({
+            "error": "Error retrieving clocks for user",
+        });
+    }
 });
 
 export default router;
