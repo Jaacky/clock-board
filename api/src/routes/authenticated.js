@@ -7,8 +7,14 @@ import { getClocks } from '../db/db';
 const router = express.Router();
 
 const authenticated = (req, res, next) => {
+    if (req.body === undefined || req.body.token === undefined) {
+        res.status(401).json({
+            error: "Unauthorized",
+        });
+    }
     let token = req.body.token;
     console.log("Token passed to authenticated middleware: ", token);
+
     let sections = token.split('.');
     let decoded = jose.util.base64url.decode(sections[0]);
     let header = JSON.parse(decoded)
@@ -63,7 +69,7 @@ const authenticated = (req, res, next) => {
         .catch(() => {
             res.status(401).json({
                 error: "Token signature verification failed",
-            })
+            });
             return
         })
     })
