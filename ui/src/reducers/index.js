@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
 
-import { LOGIN } from 'actions/types';
+import {
+    LOGIN,
+    CLOCKS_RETRIEVED,
+} from 'actions/types';
 
 const user = (state = {}, action) => {
     switch (action.type) {
@@ -11,8 +14,18 @@ const user = (state = {}, action) => {
     }
 };
 
+const clocks = (state = [], action) => {
+    switch (action.type) {
+        case CLOCKS_RETRIEVED:
+            return [...action.clocks];
+        default:
+            return state;
+    };
+}
+
 const reducers = combineReducers({
     user,
+    clocks,
 });
 
 export default reducers;

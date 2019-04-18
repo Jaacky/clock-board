@@ -4,14 +4,17 @@ import styles from '../scss/styles.scss';
 
 import Clock from '../components/Clock.jsx';
 
+import { clocksRetrieved } from 'actions';
+
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            clocks: [],
             countdownEndDate: "",
             countdownEndTime: "",
+
+            isLoadingClocks: false,
         };
     }
 
@@ -47,21 +50,49 @@ class Dashboard extends React.Component {
         })
     }
 
+    // renderUserClocks = async () => {
+    //     if (!(this.props.user.idToken === undefined)) {
+    //         this.setState({
+    //             isLoadingClocks: true,
+    //         });
+    //         try {
+    //             let response = await fetch("/api/authenticated/clocks", {
+    //                 method: "POST",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                 },
+    //                 body: JSON.stringify({
+    //                     token: this.props.user.accessToken,
+    //                 }),
+    //             });
+    //             console.log("fetch clcoks response ok", response.ok);
+    //             if (response.ok) {
+    //                 let json = await response.json();
+    //                 console.log("json response from fetch clocks", json);
+    //                 this.props.clocksRetrieved(json.clocks);
+    //             }
+    //         } catch(err) {
+
+    //         }
+    //     }
+    // }
+
     render() {
+        // this.renderUserClocks();
         // console.log(this.state.clocks);
-        let clocks = this.state.clocks.length == 0
+        let clocks = this.props.clocks.length == 0
             ? <p>Please add a clock</p>
-            : this.state.clocks.map((clock) => (
-                <Clock endTime={clock.endTime}/>
+            : this.props.clocks.map((clock) => (
+                <Clock endTime={clock["ends_at"]}/>
             ))
 
         let testClocks = [
-            <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />
+            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
+            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
+            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
+            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
+            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
+            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />
         ]
         return (
             <div>
@@ -88,6 +119,7 @@ class Dashboard extends React.Component {
                 <div className={styles.clocks}>
                     {testClocks}
                     {clocks}
+                    {/* {this.renderUserClocks()} */}
                 </div>
             </div>
         )
@@ -97,7 +129,16 @@ class Dashboard extends React.Component {
 const mapStateToProps = (state) => {
     console.log("state update in dashboard", state);
     return {
+        user: state.user,
+        clocks: state.clocks,
+    }
+}
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        clocksRetrieved: (clocks) => {
+            dispatch(clocksRetrieved(clocks));
+        },
     }
 }
 
