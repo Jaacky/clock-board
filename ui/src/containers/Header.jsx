@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Login from 'containers/Login';
+import Login from 'components/Login';
 import Registration from 'containers/Registration';
 
 import { login } from 'actions';

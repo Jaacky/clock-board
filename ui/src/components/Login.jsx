@@ -1,7 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-import { login } from 'actions';
 
 class Login extends React.Component {
     constructor(props) {
@@ -59,22 +56,3 @@ class Login extends React.Component {
 }
 
 export default Login;
-// const mapStateToProps = (state) => {
-//     console.log("state in login", state);
-//     return {}
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         login: (user) => {
-//             dispatch(login(user));
-//         },
-//     }
-// }
-
-// const LoginContainer = connect(
-//     mapStateToProps,
-//     mapDispatchToProps,
-// )(Login);
-
-// export default LoginContainer;
