@@ -4,10 +4,9 @@ import { awsKeys, clientId } from '../config/aws';
 
 const router = express.Router();
 
-// https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.js
-router.post('/clocks', (req, res) => {
+const authenticated = (req, res, next) => {
     let token = req.body.token;
-    console.log("Token passed to authenticated: ", token);
+    console.log("Token passed to authenticated middleware: ", token);
     let sections = token.split('.');
     let decoded = jose.util.base64url.decode(sections[0]);
     let header = JSON.parse(decoded)
@@ -56,13 +55,7 @@ router.post('/clocks', (req, res) => {
                 return
             }
 
-            res.status(200).json({
-                "clocks": [
-                    {"end": new Date("April 20 2019 12:30")},
-                    {"end": new Date("April 11 2019 23:58")}
-                ],
-            });
-            return
+            next();
         })
         .catch(() => {
             res.status(401).json({
@@ -71,6 +64,19 @@ router.post('/clocks', (req, res) => {
             return
         })
     })
+}
+
+router.use(authenticated);
+
+// https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.js
+router.post('/clocks', (req, res) => {
+    res.status(200).json({
+        "clocks": [
+            {"end": new Date("April 20 2019 12:30")},
+            {"end": new Date("April 11 2019 23:58")}
+        ],
+    });
+    return
 });
 
 export default router;
