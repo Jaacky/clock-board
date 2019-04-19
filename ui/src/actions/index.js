@@ -1,12 +1,14 @@
 import {
-    LOGIN,
+    LOGIN_REQUEST,
     CLOCKS_RETRIEVED 
 } from "./types";
 
-export function login(user) {
+export function loginRequest(email, password) {
+    console.log("login Reqest called, email:", email);
     return {
-        type: LOGIN,
-        user
+        type: LOGIN_REQUEST,
+        email,
+        password,
     }
 }
 

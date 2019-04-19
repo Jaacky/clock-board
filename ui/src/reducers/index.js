@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux';
 
 import {
-    LOGIN,
+    LOGIN_SUCCESSFUL,
     CLOCKS_RETRIEVED,
 } from 'actions/types';
 
 const user = (state = {}, action) => {
+    console.log("User reducer: action", action);
     switch (action.type) {
-        case LOGIN:
+        case LOGIN_SUCCESSFUL:
+            console.log("user reducer, case login")
             return { ...state, ...action.user };
         default:
             return state;
