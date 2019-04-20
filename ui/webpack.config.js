@@ -21,7 +21,7 @@ module.exports = {
     },
     resolve: {
         modules: ['node_modules', 'src'],
-        extensions: ['.css', 'scss', '.js', '.jsx']
+        extensions: ['.css', '.scss', '.js', '.jsx']
     },
     module: {
         rules: [
