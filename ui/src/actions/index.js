@@ -1,5 +1,6 @@
 import {
     LOGIN_REQUEST,
+    LOGIN_SUCCESSFUL,
     CLOCKS_RETRIEVED 
 } from "./types";
 
@@ -9,7 +10,14 @@ export function loginRequest(email, password) {
         type: LOGIN_REQUEST,
         email,
         password,
-    }
+    };
+}
+
+export function loginSuccessful(user) {
+    return {
+        type: LOGIN_SUCCESSFUL,
+        user,
+    };
 }
 
 export function clocksRetrieved(clocks) {

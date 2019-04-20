@@ -2,11 +2,18 @@ import { all, call, put, takeEvery } from 'redux-saga/effects';
 
 import {
     LOGIN_REQUEST,
-    LOGIN_SUCCESSFUL,
 } from 'actions/types';
+
+import {
+    loginSuccessful
+} from 'actions';
 
 function* login(action) {
     console.log("login saga, action: ", action);
+    // NO INTERNET TEST
+    // yield put(loginSuccessful({idToken: "123"}));
+    // return
+    // END NO INTERNET TEST
     try {
         const response = yield call(fetch, "/api/signin", {
             method: "POST",
@@ -23,7 +30,7 @@ function* login(action) {
         if (response.ok){
             const json = yield response.json();
             console.log("json response from submit", json);
-            yield put({type: LOGIN_SUCCESSFUL, user: { idToken: json.idToken } });
+            yield put(loginSuccessful({ idToken: json.idToken }));
         }
     } catch(err) {
         console.log("Err in login saga", err);
