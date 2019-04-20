@@ -7,9 +7,11 @@ import Registration from 'components/Registration';
 import {
     loginRequest,
     registrationRequest,
+    verificationRequest,
 } from 'actions';
 
 import styles from 'scss/styles';
+import Verification from '../components/Verification';
 
 class Header extends React.Component {
     constructor(props) {
@@ -30,9 +32,12 @@ class Header extends React.Component {
                     <Registration key="registration"
                         registrationRequest={this.props.registrationRequest}
                     />,
+                    <Verification key="verification"
+                        sendVerificationRequest={this.props.sendVerificationRequest}
+                    />,
                     <Login key="login"
                         loginRequest={this.props.loginRequest}
-                    />
+                    />,
                 ]
             )
         }
@@ -61,6 +66,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         registrationRequest: (email, password) => {
             dispatch(registrationRequest(email, password));
+        },
+        sendVerificationRequest: (email, code) => {
+            dispatch(verificationRequest(email, code));
         },
     }
 }

@@ -3,11 +3,15 @@ import { all, call, put, takeEvery } from 'redux-saga/effects';
 import {
     LOGIN_REQUEST,
     REGISTRATION_REQUEST,
+    VERIFICATION_REQUEST,
 } from 'actions/types';
 
 import {
     loginSuccessful,
     registrationSucceeded,
+    registrationFailed,
+    verificationSucceeded,
+    verificationFailed,
 } from 'actions';
 
 function* registration({email, password}) {
@@ -39,6 +43,36 @@ function* registration({email, password}) {
 
 function* watchRegistration() {
     yield takeEvery(REGISTRATION_REQUEST, registration)
+}
+
+function* verification({email, code}) {
+    try {
+        const response = yield call(fetch, "/api/verify", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email,
+                verificationCode: code,
+            }),
+        });
+        console.log("Response yielded: ", response);
+        console.log("response ok: ", response.ok);
+        const json = yield response.json();
+            console.log("json response from verification submit", json);
+        if (response.ok){
+            yield put(verificationSucceeded());
+        } else {
+            yield put(verificationFailed(json.error));
+        }
+    } catch(err) {
+        console.log("Err in verification saga", err);
+    }
+}
+
+function* watchVerification() {
+    yield takeEvery(VERIFICATION_REQUEST, verification);
 }
 
 function* login({email, password}) {
@@ -77,5 +111,6 @@ export default function* rootSaga() {
     yield all([
         watchLogin(),
         watchRegistration(),
+        watchVerification(),
     ]);
 };

@@ -1,10 +1,13 @@
 import {
     REGISTRATION_REQUEST,
+    REGISTRATION_SUCCESSFUL,
+    REGISTRATION_FAILED,
+    VERIFICATION_REQUEST,
+    VERIFICATION_SUCCESSFUL,
+    VERIFICATION_FAILED,
     LOGIN_REQUEST,
     LOGIN_SUCCESSFUL,
     CLOCKS_RETRIEVED, 
-    REGISTRATION_FAILED,
-    REGISTRATION_SUCCESSFUL
 } from "./types";
 
 export function registrationRequest(email, password) {
@@ -25,6 +28,27 @@ export function registrationSucceeded(email) {
 export function registrationFailed(message) {
     return {
         type: REGISTRATION_FAILED,
+        message,
+    };
+}
+
+export function verificationRequest(email, code) {
+    return {
+        type: VERIFICATION_REQUEST,
+        email,
+        code,
+    };
+}
+
+export function verificationSucceeded() {
+    return {
+        type: VERIFICATION_SUCCESSFUL,
+    };
+}
+
+export function verificationFailed(message) {
+    return {
+        type: VERIFICATION_FAILED,
         message,
     };
 }
