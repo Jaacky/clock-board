@@ -3,6 +3,8 @@ import { combineReducers } from 'redux';
 import {
     LOGIN_SUCCESSFUL,
     CLOCKS_RETRIEVED,
+    REGISTRATION_FAILED,
+    REGISTRATION_SUCCESSFUL
 } from 'actions/types';
 
 const user = (state = {}, action) => {
@@ -10,7 +12,16 @@ const user = (state = {}, action) => {
     switch (action.type) {
         case LOGIN_SUCCESSFUL:
             console.log("user reducer, case login")
-            return { ...state, ...action.user };
+            return { ...state,
+                ...action.user
+            };
+        case REGISTRATION_SUCCESSFUL:
+            return { ...state,
+                email: action.email,
+                newUser: true
+            };
+        case REGISTRATION_FAILED:
+            return {};
         default:
             return state;
     }

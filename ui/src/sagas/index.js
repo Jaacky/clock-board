@@ -2,14 +2,47 @@ import { all, call, put, takeEvery } from 'redux-saga/effects';
 
 import {
     LOGIN_REQUEST,
+    REGISTRATION_REQUEST,
 } from 'actions/types';
 
 import {
-    loginSuccessful
+    loginSuccessful,
+    registrationSucceeded,
 } from 'actions';
 
-function* login(action) {
-    console.log("login saga, action: ", action);
+function* registration({email, password}) {
+    console.log("registration saga! emial:pass", email, password)
+    try {
+        const response = yield call(fetch, "/api/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email,
+                password,
+            }),
+        });
+        console.log("Response yielded: ", response);
+        console.log("response ok: ", response.ok);
+        const json = yield response.json();
+            console.log("json response from submit", json);
+        if (response.ok){
+            yield put(registrationSucceeded(json.email));
+        } else {
+            yield put(registrationFailed(json.error));
+        }
+    } catch(err) {
+        console.log("Err in register saga", err);
+    }
+}
+
+function* watchRegistration() {
+    yield takeEvery(REGISTRATION_REQUEST, registration)
+}
+
+function* login({email, password}) {
+    console.log("login saga, action: ", email, password);
     // NO INTERNET TEST
     // yield put(loginSuccessful({idToken: "123"}));
     // return
@@ -21,8 +54,8 @@ function* login(action) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                "email": event.target.email.value,
-                "password": event.target.password.value,
+                "email": email,
+                "password": password,
             }),
         });
         console.log("Response yielded: ", response);
@@ -43,5 +76,6 @@ function* watchLogin() {
 export default function* rootSaga() {
     yield all([
         watchLogin(),
+        watchRegistration(),
     ]);
 };

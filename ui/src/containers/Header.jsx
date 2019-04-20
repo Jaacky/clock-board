@@ -2,9 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Login from 'components/Login';
-import Registration from 'containers/Registration';
+import Registration from 'components/Registration';
 
-import { loginRequest } from 'actions';
+import {
+    loginRequest,
+    registrationRequest,
+} from 'actions';
+
+import styles from 'scss/styles';
 
 class Header extends React.Component {
     constructor(props) {
@@ -21,17 +26,21 @@ class Header extends React.Component {
         if (idToken === undefined) {
             console.log("idToken is undefined");
             return (
-                <div>
-                    <Registration/>
-                    <Login loginRequest={this.props.loginRequest}/>
-                </div>
+                [
+                    <Registration key="registration"
+                        registrationRequest={this.props.registrationRequest}
+                    />,
+                    <Login key="login"
+                        loginRequest={this.props.loginRequest}
+                    />
+                ]
             )
         }
     }
 
     render() {
         return(
-            <div>
+            <div className={styles.header}>
                 {this.renderAccountPrompts()}
             </div>
         )
@@ -49,6 +58,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loginRequest: (email, password) => {
             dispatch(loginRequest(email, password));
+        },
+        registrationRequest: (email, password) => {
+            dispatch(registrationRequest(email, password));
         },
     }
 }
