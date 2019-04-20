@@ -29,6 +29,7 @@ router.post('/signup', (req, res, next) => {
                 res.status(409).json({
                     error: "Email is already used",
                 });
+                return;
             }
             // Invalid sign up
             res.status(400).json({
@@ -38,7 +39,7 @@ router.post('/signup', (req, res, next) => {
         }
         console.log("Successful signup, result: ", result);
         res.status(201).json({
-            message: "Successful signup",
+            email: result.user.getUsername(),
         });
         // Return successful sign up event
     });
