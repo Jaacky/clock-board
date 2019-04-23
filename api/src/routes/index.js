@@ -60,6 +60,7 @@ router.post('/verify', (req, res, next) => {
             res.status(401).json({
                 error: "Invalid verification",
             });
+            return;
         }
         console.log('verification call result: ' + result);
         res.status(200).json({
@@ -89,16 +90,28 @@ router.post('/signin', (req, res, next) => {
             console.log("Successful signin: ", result);
             let accessToken = result.getAccessToken().getJwtToken();
             let idToken = result.getIdToken().getJwtToken();
+            console.log("result.getIdToken(): ", result.getIdToken());
+            console.log(result.getIdToken().payload);
             res.status(200).json({
                 accessToken,
                 idToken
             });
+            return;
         },
         onFailure: (err) => {
             console.log("Error signing in: ", err);
-            res.status(401).json({
-                error: "Unauthorized",
-            });
+            if (err.code === 'UserNotConfirmedException') {
+                console.log("User has not confirmed acount");
+                res.status(403).json({
+                    error: "User has no confirmed the account",
+                });
+                return;
+            } else {
+                res.status(401).json({
+                    error: "Unauthorized",
+                });
+                return;
+            }
         },
     });
 });
