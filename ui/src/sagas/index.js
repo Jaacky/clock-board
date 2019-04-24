@@ -112,8 +112,9 @@ function* login({email, password, history}) {
         }
     } catch(err) {
         console.log("Err in login saga", err);
-        yield put(loginFailed("Error logging in"));
     }
+
+    yield put(loginFailed("Error logging in. Please try again."));
 }
 function* watchLogin() {
     yield takeEvery(LOGIN_REQUEST, login)
