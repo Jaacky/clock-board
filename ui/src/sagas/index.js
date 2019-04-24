@@ -10,6 +10,7 @@ import {
     loginSuccessful,
     registrationSucceeded,
     registrationFailed,
+    verficiationNeeded,
     verificationSucceeded,
     verificationFailed,
 } from 'actions';
@@ -94,13 +95,19 @@ function* login({email, password, history}) {
         });
         console.log("Response yielded: ", response);
         console.log("response ok: ", response.ok);
-        if (response.ok){
-            const json = yield response.json();
-            console.log("json response from submit", json);
+        const json = yield response.json();
+        console.log("json response from submit", json);
+        if (response.ok) {
             const loginSuccesfulYield = yield put(loginSuccessful({ idToken: json.idToken }));
             console.log("After login successful yield", loginSuccesfulYield);
-            history.push("/dashboard");
+            history.push("/ ");
             console.log("After all the yields");
+        } else {
+            if (json.error === "User has no confirmed the account") {
+                console.log("Login, verification needed");
+                yield put(verficiationNeeded(email));
+                history.push("/verification")
+            }
         }
     } catch(err) {
         console.log("Err in login saga", err);

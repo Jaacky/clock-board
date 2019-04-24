@@ -4,24 +4,29 @@ import {
     LOGIN_SUCCESSFUL,
     CLOCKS_RETRIEVED,
     REGISTRATION_FAILED,
-    REGISTRATION_SUCCESSFUL
+    REGISTRATION_SUCCESSFUL,
+    VERIFICATION_NEEDED,
 } from 'actions/types';
 
 const user = (state = { newUser: false }, action) => {
     console.log("User reducer: action", action);
     switch (action.type) {
         case LOGIN_SUCCESSFUL:
-            console.log("user reducer, case login")
             return { ...state,
                 ...action.user
             };
-        case REGISTRATION_SUCCESSFUL:
-            return { ...state,
-                email: action.email,
-                newUser: true
-            };
         case REGISTRATION_FAILED:
             return {};
+        case REGISTRATION_SUCCESSFUL:
+            // return { ...state,
+            //     email: action.email,
+            //     newUser: true
+            // };
+        case VERIFICATION_NEEDED:
+            return { ...state,
+                email: action.email,
+                newUser: true,
+            };
         default:
             return state;
     }

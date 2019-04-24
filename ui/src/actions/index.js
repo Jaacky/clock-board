@@ -2,6 +2,7 @@ import {
     REGISTRATION_REQUEST,
     REGISTRATION_SUCCESSFUL,
     REGISTRATION_FAILED,
+    VERIFICATION_NEEDED,
     VERIFICATION_REQUEST,
     VERIFICATION_SUCCESSFUL,
     VERIFICATION_FAILED,
@@ -29,6 +30,13 @@ export function registrationFailed(message) {
     return {
         type: REGISTRATION_FAILED,
         message,
+    };
+}
+
+export function verficiationNeeded(email) {
+    return {
+        type: VERIFICATION_NEEDED,
+        email,
     };
 }
 
