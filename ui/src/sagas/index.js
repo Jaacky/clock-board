@@ -8,6 +8,7 @@ import {
 
 import {
     loginSuccessful,
+    loginFailed,
     registrationSucceeded,
     registrationFailed,
     verficiationNeeded,
@@ -98,19 +99,20 @@ function* login({email, password, history}) {
         const json = yield response.json();
         console.log("json response from submit", json);
         if (response.ok) {
-            const loginSuccesfulYield = yield put(loginSuccessful({ idToken: json.idToken }));
-            console.log("After login successful yield", loginSuccesfulYield);
-            history.push("/ ");
-            console.log("After all the yields");
-        } else {
-            if (json.error === "User has no confirmed the account") {
+            if (json.newUser) {
                 console.log("Login, verification needed");
                 yield put(verficiationNeeded(email));
-                history.push("/verification")
+                history.push("/verification");
+                return;
+            } else {
+                yield put(loginSuccessful({ idToken: json.idToken }));
+                history.push("/ ");
+                return;
             }
         }
     } catch(err) {
         console.log("Err in login saga", err);
+        yield put(loginFailed("Error logging in"));
     }
 }
 function* watchLogin() {

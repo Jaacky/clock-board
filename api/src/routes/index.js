@@ -94,7 +94,8 @@ router.post('/signin', (req, res, next) => {
             console.log(result.getIdToken().payload);
             res.status(200).json({
                 accessToken,
-                idToken
+                idToken,
+                newUser: false,
             });
             return;
         },
@@ -102,8 +103,8 @@ router.post('/signin', (req, res, next) => {
             console.log("Error signing in: ", err);
             if (err.code === 'UserNotConfirmedException') {
                 console.log("User has not confirmed acount");
-                res.status(403).json({
-                    error: "User has no confirmed the account",
+                res.status(200).json({
+                    newUser: true,
                 });
                 return;
             } else {

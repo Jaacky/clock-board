@@ -8,6 +8,7 @@ import {
     VERIFICATION_FAILED,
     LOGIN_REQUEST,
     LOGIN_SUCCESSFUL,
+    LOGIN_FAILED,
     CLOCKS_RETRIEVED, 
 } from "./types";
 
@@ -75,6 +76,13 @@ export function loginSuccessful(user) {
     return {
         type: LOGIN_SUCCESSFUL,
         user,
+    };
+}
+
+export function loginFailed(message) {
+    return {
+        type: LOGIN_FAILED,
+        message,
     };
 }
 
