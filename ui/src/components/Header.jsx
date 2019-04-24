@@ -18,6 +18,9 @@ const Header = () => {
             <Link to="/verification">
                 <button>Verification</button>
             </Link>
+            <Link to="/dashboard">
+                <button>Dashboard</button>
+            </Link>
         </div>
     )
 }

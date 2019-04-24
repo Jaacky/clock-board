@@ -11,8 +11,6 @@ export default class Registration extends React.Component {
             email: "",
             password: "",
             confirmPassword: "",
-            confirmationCode: "",
-            newUser: null,
         };
     }
 
@@ -24,11 +22,6 @@ export default class Registration extends React.Component {
         );
     }
 
-    validateConfirmationForm() {
-        console.log("validate confirmation form: " + this.state.confirmationCode.length > 0)
-        return this.state.confirmationCode.length > 0;
-    }
-
     handleChange = event => {
         this.setState({
             [event.target.name]: event.target.value
@@ -38,18 +31,8 @@ export default class Registration extends React.Component {
     handleSubmit = async event => {
         event.preventDefault();
         let { registrationRequest } = this.props;
-        this.setState({ isLoading: true });
 
         registrationRequest(event.target.email.value, event.target.password.value);
-        this.setState({ newUser: "heyo" });
-
-        this.setState({ isLoading: false });
-    }
-
-    handleConfirmationSubmit = async event => {
-        event.preventDefault();
-
-        this.setState({ isLoading: true });
     }
 
     render() {
