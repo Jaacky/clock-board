@@ -7,7 +7,7 @@ import {
     REGISTRATION_SUCCESSFUL
 } from 'actions/types';
 
-const user = (state = {}, action) => {
+const user = (state = { newUser: false }, action) => {
     console.log("User reducer: action", action);
     switch (action.type) {
         case LOGIN_SUCCESSFUL:
@@ -36,9 +36,9 @@ const clocks = (state = [], action) => {
     };
 }
 
-const reducers = combineReducers({
+const createRootReducers = (history) => combineReducers({
     user,
     clocks,
 });
 
-export default reducers;
+export default createRootReducers;

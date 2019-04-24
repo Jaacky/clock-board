@@ -52,9 +52,10 @@ export default class Registration extends React.Component {
         this.setState({ isLoading: true });
     }
 
-    renderForm() {
+    render() {
         return (
             <form className={styles.form} onSubmit={this.handleSubmit}>
+                <h1>Sign up form</h1>
                 <label>Email:</label>
                 <input
                     autoFocus
@@ -87,40 +88,6 @@ export default class Registration extends React.Component {
                 {this.state.isLoading ? "Registering" : "Register" }
                 </button>
             </form>
-        )
-    }
-
-    renderConfirmationForm() {
-        return (
-            <form onSubmit={this.handleConfirmationSubmit}>
-                <label>Confirmation code:</label>
-                <input
-                    autoFocus
-                    name="confirmationCode"
-                    type="tel"
-                    value={this.state.confirmationCode}
-                    onChange={this.handleChange}
-                    placeholder="Confirmation code"
-                />
-                <button
-                    type="submit"
-                    disabled={!this.validateConfirmationForm() || this.state.isLoading }
-                >
-                {this.state.isLoading ? "Verifying" : "Verify" }
-                </button>
-            </form>
-        )
-    }
-
-    render() {
-        console.log("New user: ", this.newUser === null);
-        return (
-            <div>
-                {this.state.newUser === null 
-                    ? this.renderForm()
-                    : this.renderConfirmationForm()
-                }
-            </div>
         )
     }
 }
