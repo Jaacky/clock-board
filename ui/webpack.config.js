@@ -7,6 +7,7 @@ module.exports = {
     devtool: "inline-source-map",
     devServer: {
         contentBase: path.join(__dirname, "dist"),
+        historyApiFallback: true,
         proxy: {
             '/api': {
                 target: 'http://localhost:3000',
