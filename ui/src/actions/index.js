@@ -53,12 +53,13 @@ export function verificationFailed(message) {
     };
 }
 
-export function loginRequest(email, password) {
-    console.log("login Reqest called, email:", email);
+export function loginRequest(email, password, history) {
+    console.log("login Reqest called e, history", email, history);
     return {
         type: LOGIN_REQUEST,
         email,
         password,
+        history,
     };
 }
 

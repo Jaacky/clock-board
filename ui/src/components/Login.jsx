@@ -12,9 +12,11 @@ class Login extends React.Component {
     // TODO: Move fetch call to saga, handle state setting globally instead of through this component.
     handleSubmit = async event => {
         event.preventDefault();
-        let { loginRequest } = this.props;
+        console.log("Login props: ", this.props);
+        console.log("this.prosp.history", this.props.history);
+        let { sendLoginRequest } = this.props;
         this.setState({ isLoading: true });
-        loginRequest(event.target.email.value, event.target.password.value)
+        sendLoginRequest(event.target.email.value, event.target.password.value, this.props.history)
         // try {
         //     let response = await fetch("/api/signin", {
         //         method: "POST",

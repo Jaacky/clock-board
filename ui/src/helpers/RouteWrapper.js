@@ -3,9 +3,10 @@ import { Route } from 'react-router';
 
 const RouteWrapper = ({ component: ChildComponent, exact, path, ...rest }) => {
     return (
-        <Route exact path={path} render={ () => {
+        <Route exact path={path} render={ (props) => {
+            console.log("Route.props", props);
             return (
-                <ChildComponent {...rest}/>
+                <ChildComponent {...rest} history={props.history}/>
             )
         }}/>
     )

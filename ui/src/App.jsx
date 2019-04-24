@@ -32,7 +32,7 @@ class App extends React.Component {
                         registrationRequest={this.props.registrationRequest}
                     />
                     <RouteWrapper path="/login" component={Login}
-                        loginRequest={this.props.loginRequest}
+                        sendLoginRequest={this.props.sendLoginRequest}
                     />
                     <RouteWrapper path="/verification" component={Verification}
                         sendVerificationRequest={this.props.sendVerificationRequest}
@@ -54,8 +54,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginRequest: (email, password) => {
-            dispatch(loginRequest(email, password));
+        sendLoginRequest: (email, password, history) => {
+            dispatch(loginRequest(email, password, history));
         },
         registrationRequest: (email, password) => {
             dispatch(registrationRequest(email, password));

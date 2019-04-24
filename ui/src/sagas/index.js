@@ -75,7 +75,7 @@ function* watchVerification() {
     yield takeEvery(VERIFICATION_REQUEST, verification);
 }
 
-function* login({email, password}) {
+function* login({email, password, history}) {
     console.log("login saga, action: ", email, password);
     // NO INTERNET TEST
     // yield put(loginSuccessful({idToken: "123"}));
@@ -97,7 +97,10 @@ function* login({email, password}) {
         if (response.ok){
             const json = yield response.json();
             console.log("json response from submit", json);
-            yield put(loginSuccessful({ idToken: json.idToken }));
+            const loginSuccesfulYield = yield put(loginSuccessful({ idToken: json.idToken }));
+            console.log("After login successful yield", loginSuccesfulYield);
+            history.push("/dashboard");
+            console.log("After all the yields");
         }
     } catch(err) {
         console.log("Err in login saga", err);
