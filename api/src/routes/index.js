@@ -175,4 +175,49 @@ router.post('/forgot-password', (req, res, next) => {
     // })
 });
 
+router.post('/delete', (req, res, next) => {
+    let email = req.body.email;
+    let password = req.body.password;
+    console.log(`email: ${email}, password: ${password}`);
+
+    let authentcationDetails = new AuthenticationDetails({
+        Username: email,
+        Password: password,
+    });
+
+    let cognitoUser = new CognitoUser({
+        Username: email,
+        Pool: userPool,
+    });
+
+    cognitoUser.authenticateUser(authentcationDetails, {
+        onSuccess: (result) => {
+            console.log("Successful authentication: ", result);
+            
+            cognitoUser.deleteUser((err, result) => {
+                if (err) {
+                    console.log("Error deleting user: ", err);
+                    console.log("Error deleting user: result", result);
+                    res.status(400).json({
+                        message: "Error deleting user",
+                    });
+                    return;
+                }
+                console.log("Delete user, result: ", result);
+                res.status(200).json({
+                    message: "Successfully deleted user",
+                });
+                return;
+            });
+        },
+        onFailure: (err) => {
+            console.log("Error deleting user in: ", err);
+            res.status(401).json({
+                error: "Unauthorized",
+            });
+            return;
+        },
+    });
+});
+
 export default router;
