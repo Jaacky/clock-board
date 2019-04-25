@@ -4,7 +4,10 @@ import styles from '../scss/styles.scss';
 
 import Clock from '../components/Clock.jsx';
 
-import { clocksRetrieved } from 'actions';
+import {
+    clocksRequest,
+    clocksRetrieved
+} from 'actions';
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -13,9 +16,12 @@ class Dashboard extends React.Component {
         this.state = {
             countdownEndDate: "",
             countdownEndTime: "",
-
-            isLoadingClocks: false,
         };
+    }
+
+    componentDidMount() {
+        console.log("dashboard component did mount");
+        this.props.sendClocksRequest(this.props.user.email);
     }
 
     handleAddClock = () => {
@@ -53,7 +59,7 @@ class Dashboard extends React.Component {
     // renderUserClocks = async () => {
     //     if (!(this.props.user.idToken === undefined)) {
     //         this.setState({
-    //             isLoadingClocks: true,
+    //             isLoading: true,
     //         });
     //         try {
     //             let response = await fetch("/api/authenticated/clocks", {
@@ -78,6 +84,12 @@ class Dashboard extends React.Component {
     // }
 
     render() {
+        console.log("this.props", this.props);
+        if (this.props.loading) {
+            return (
+                <h1>Loading clocks...</h1>
+            )
+        }
         // this.renderUserClocks();
         // console.log(this.state.clocks);
         let clocks = this.props.clocks.length == 0
@@ -131,11 +143,15 @@ const mapStateToProps = (state) => {
     return {
         user: state.user,
         clocks: state.clocks,
+        loading: state.loading.dashboard,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        sendClocksRequest: (email) => {
+            dispatch(clocksRequest(email));
+        },
         clocksRetrieved: (clocks) => {
             dispatch(clocksRetrieved(clocks));
         },
@@ -144,6 +160,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const DashboardContainer = connect(
     mapStateToProps,
+    mapDispatchToProps
 )(Dashboard);
 
 export default DashboardContainer;

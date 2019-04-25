@@ -32,7 +32,7 @@ function* registration({email, password}) {
         console.log("Response yielded: ", response);
         console.log("response ok: ", response.ok);
         const json = yield response.json();
-            console.log("json response from submit", json);
+        console.log("json response from submit", json);
         if (response.ok){
             yield put(registrationSucceeded(json.email));
             history.push("/verification");

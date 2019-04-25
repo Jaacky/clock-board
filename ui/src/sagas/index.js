@@ -6,10 +6,15 @@ import {
     watchVerification,
 } from './account'
 
+import {
+    watchClocksRequest,
+} from './clocks';
+
 export default function* rootSaga() {
     yield all([
         watchLogin(),
         watchRegistration(),
         watchVerification(),
+        watchClocksRequest(),
     ]);
 };

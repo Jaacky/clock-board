@@ -2,10 +2,12 @@ import { combineReducers } from 'redux';
 
 import {
     LOGIN_SUCCESSFUL,
-    CLOCKS_RETRIEVED,
     REGISTRATION_FAILED,
     REGISTRATION_SUCCESSFUL,
     VERIFICATION_NEEDED,
+    CLOCKS_REQUEST,
+    CLOCKS_REQUEST_SUCCEEDED,
+    CLOCKS_RETRIEVED,
 } from 'actions/types';
 
 const user = (state = { newUser: false }, action) => {
@@ -34,8 +36,22 @@ const user = (state = { newUser: false }, action) => {
 
 const clocks = (state = [], action) => {
     switch (action.type) {
+        case CLOCKS_REQUEST_SUCCEEDED:
+            console.log("action from clocks request successful: ", action);
+            return [...action.clocks];
         case CLOCKS_RETRIEVED:
             return [...action.clocks];
+        default:
+            return state;
+    };
+}
+
+const loading = (state = {dashboard: false}, action) => {
+    switch (action.type) {
+        case CLOCKS_REQUEST:
+        return { ...state, dashboard: true };
+        case CLOCKS_REQUEST_SUCCEEDED:
+            return { ...state, dashboard: false };
         default:
             return state;
     };
@@ -44,6 +60,7 @@ const clocks = (state = [], action) => {
 const createRootReducers = (history) => combineReducers({
     user,
     clocks,
+    loading,
 });
 
 export default createRootReducers;

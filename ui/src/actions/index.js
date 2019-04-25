@@ -9,6 +9,9 @@ import {
     LOGIN_REQUEST,
     LOGIN_SUCCESSFUL,
     LOGIN_FAILED,
+    CLOCKS_REQUEST,
+    CLOCKS_REQUEST_SUCCEEDED,
+    CLOCKS_REQUEST_FAILED,
     CLOCKS_RETRIEVED, 
 } from "./types";
 
@@ -82,6 +85,27 @@ export function loginSuccessful(user) {
 export function loginFailed(message) {
     return {
         type: LOGIN_FAILED,
+        message,
+    };
+}
+
+export function clocksRequest(email) {
+    return {
+        type: CLOCKS_REQUEST,
+        email,
+    };
+}
+
+export function clocksRequestSucceeded(clocks) {
+    return {
+        type: CLOCKS_REQUEST_SUCCEEDED,
+        clocks,
+    };
+}
+
+export function clocksRequestFailed(message) {
+    return {
+        type: CLOCKS_REQUEST_FAILED,
         message,
     };
 }
