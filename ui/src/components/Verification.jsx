@@ -8,29 +8,18 @@ export default class Verification extends React.Component {
 
         this.state = {
             isLoading: false,
-            confirmationCode: "",
         };
-    }
-
-    validateConfirmationForm() {
-        console.log("validate confirmation form: " + this.state.confirmationCode.length > 0)
-        return this.state.confirmationCode.length > 0;
-    }
-
-    handleChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
     }
 
     handleConfirmationSubmit = async event => {
         event.preventDefault();
-
         this.setState({ isLoading: true });
+        let { user, sendVerificationRequest } = this.props;
+        console.log(user.email, event.target.confirmationCode.value);
+        sendVerificationRequest(user.email, event.target.confirmationCode.value);
     }
 
     render() {
-        console.log("New user: ", this.newUser === null);
         return (
             <form
                 className={styles.form}
@@ -41,13 +30,11 @@ export default class Verification extends React.Component {
                     autoFocus
                     name="confirmationCode"
                     type="tel"
-                    value={this.state.confirmationCode}
-                    onChange={this.handleChange}
                     placeholder="Confirmation code"
                 />
                 <button
                     type="submit"
-                    disabled={!this.validateConfirmationForm() || this.state.isLoading }
+                    disabled={this.state.isLoading}
                 >
                 {this.state.isLoading ? "Verifying" : "Verify" }
                 </button>

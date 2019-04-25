@@ -35,6 +35,7 @@ function* registration({email, password}) {
             console.log("json response from submit", json);
         if (response.ok){
             yield put(registrationSucceeded(json.email));
+            history.push("/verification");
         } else {
             yield put(registrationFailed(json.error));
         }
@@ -65,6 +66,7 @@ function* verification({email, code}) {
             console.log("json response from verification submit", json);
         if (response.ok){
             yield put(verificationSucceeded());
+            history.push("/dashboard");
         } else {
             yield put(verificationFailed(json.error));
         }
@@ -106,7 +108,7 @@ function* login({email, password, history}) {
                 return;
             } else {
                 yield put(loginSuccessful({ idToken: json.idToken }));
-                history.push("/ ");
+                history.push("/dashboard ");
                 return;
             }
         }

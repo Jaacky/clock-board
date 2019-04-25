@@ -36,6 +36,7 @@ class App extends React.Component {
                     />
                     <RouteWrapper path="/verification" component={Verification}
                         sendVerificationRequest={this.props.sendVerificationRequest}
+                        user={this.props.user}
                     />
                     <RouteWrapper path="/dashboard" component={Dashboard}/>
                 </Switch>
