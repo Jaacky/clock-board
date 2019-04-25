@@ -83,6 +83,14 @@ class Dashboard extends React.Component {
     //     }
     // }
 
+    renderError() {
+        if (this.props.error.flag) {
+            return (
+                <h2>Error! {this.props.error.message}</h2>
+            )
+        }
+    }
+
     render() {
         console.log("this.props", this.props);
         if (this.props.loading) {
@@ -95,7 +103,7 @@ class Dashboard extends React.Component {
         let clocks = this.props.clocks.length == 0
             ? <p>Please add a clock</p>
             : this.props.clocks.map((clock) => (
-                <Clock endTime={clock["ends_at"]}/>
+                <Clock endTime={new Date(clock["ends_at"])}/>
             ))
 
         let testClocks = [
@@ -127,7 +135,7 @@ class Dashboard extends React.Component {
                         Add Countdown
                     </button>
                 </form>
-
+                {this.renderError()}
                 <div className={styles.clocks}>
                     {testClocks}
                     {clocks}
@@ -144,6 +152,7 @@ const mapStateToProps = (state) => {
         user: state.user,
         clocks: state.clocks,
         loading: state.loading.dashboard,
+        error: state.error.dashboard,
     }
 }
 
