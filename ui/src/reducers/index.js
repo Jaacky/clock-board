@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import {
     LOGIN_SUCCESSFUL,
+    LOGOUT_SUCCESSFUL,
     REGISTRATION_FAILED,
     REGISTRATION_SUCCESSFUL,
     VERIFICATION_NEEDED,
@@ -18,13 +19,11 @@ const user = (state = { newUser: false }, action) => {
             return { ...state,
                 ...action.user
             };
+        case LOGOUT_SUCCESSFUL:
+            return { newUser: false };
         case REGISTRATION_FAILED:
             return {};
         case REGISTRATION_SUCCESSFUL:
-            // return { ...state,
-            //     email: action.email,
-            //     newUser: true
-            // };
         case VERIFICATION_NEEDED:
             return { ...state,
                 email: action.email,
@@ -37,6 +36,8 @@ const user = (state = { newUser: false }, action) => {
 
 const clocks = (state = [], action) => {
     switch (action.type) {
+        case LOGOUT_SUCCESSFUL:
+            return [];
         case CLOCKS_REQUEST_SUCCEEDED:
             console.log("action from clocks request successful: ", action);
             return [...action.clocks];
