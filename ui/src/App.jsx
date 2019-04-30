@@ -29,7 +29,12 @@ class App extends React.Component {
     }
 
     render() {
-        return(
+        if (this.props.loading) {
+            return (
+                <div>Loading...</div>
+            )
+        }
+        return (
             <div>
                 <Header
                     user={this.props.user}
@@ -59,6 +64,7 @@ const mapStateToProps = (state) => {
     console.log("state in app", state);
     return {
         user: state.user,
+        loading: state.loading.app,
     }
 }
 
