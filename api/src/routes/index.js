@@ -5,8 +5,22 @@ import { userPool } from '../config/aws';
 
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-    res.send('Hello World');
+router.post('/', function(req, res, next) {
+    // res.send('Hello World');
+    console.log("POST ROOT CALLED");
+    let jwt = (req.session) ? req.session.jwt : null;
+    if (req.session) {
+        console.log("req.session", req.session);
+        console.log("req.isChanged", req.session.isChanged);
+        console.log("req.isNew", req.session.isNew);
+        console.log("req.isPopulated", req.session.populated);
+    } else {
+        console.log("No req.session");
+    }
+
+    res.status(200).json({
+        jwt: jwt
+    });
 });
 
 router.post('/signup', (req, res, next) => {
@@ -92,6 +106,8 @@ router.post('/signin', (req, res, next) => {
             let idToken = result.getIdToken().getJwtToken();
             console.log("result.getIdToken(): ", result.getIdToken());
             console.log(result.getIdToken().payload);
+            req.session.jwt = idToken;
+
             res.status(200).json({
                 accessToken,
                 idToken,
@@ -114,6 +130,14 @@ router.post('/signin', (req, res, next) => {
                 return;
             }
         },
+    });
+});
+
+router.post('/signout', (req, res) => {
+    console.log("Sign out called");
+    req.session = null;
+    res.status(200).json({
+        message: "Successfully signed out",
     });
 });
 

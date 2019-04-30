@@ -7,12 +7,23 @@ import { getClocks } from '../db/db';
 const router = express.Router();
 
 const authenticated = (req, res, next) => {
-    if (req.body === undefined || req.body.token === undefined) {
+    let token = (req.session !== undefined && req.session !== null)
+        ? req.session.jwt 
+        : null;
+
+    if (token === undefined || token === null) {
         res.status(401).json({
             error: "Unauthorized",
         });
+        return
     }
-    let token = req.body.token;
+
+    // if (req.body === undefined || req.body.token === undefined) {
+    //     res.status(401).json({
+    //         error: "Unauthorized",
+    //     });
+    // }
+    // let token = req.body.token;
     console.log("Token passed to authenticated middleware: ", token);
 
     let sections = token.split('.');
