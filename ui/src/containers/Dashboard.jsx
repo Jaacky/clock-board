@@ -6,7 +6,6 @@ import Clock from '../components/Clock.jsx';
 
 import {
     clocksRequest,
-    clocksRetrieved
 } from 'actions';
 
 class Dashboard extends React.Component {
@@ -55,33 +54,6 @@ class Dashboard extends React.Component {
             countdownEndTime: ""
         })
     }
-
-    // renderUserClocks = async () => {
-    //     if (!(this.props.user.idToken === undefined)) {
-    //         this.setState({
-    //             isLoading: true,
-    //         });
-    //         try {
-    //             let response = await fetch("/api/authenticated/clocks", {
-    //                 method: "POST",
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                 },
-    //                 body: JSON.stringify({
-    //                     token: this.props.user.accessToken,
-    //                 }),
-    //             });
-    //             console.log("fetch clcoks response ok", response.ok);
-    //             if (response.ok) {
-    //                 let json = await response.json();
-    //                 console.log("json response from fetch clocks", json);
-    //                 this.props.clocksRetrieved(json.clocks);
-    //             }
-    //         } catch(err) {
-
-    //         }
-    //     }
-    // }
 
     renderError() {
         if (this.props.error.flag) {
@@ -178,9 +150,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         sendClocksRequest: (email) => {
             dispatch(clocksRequest(email));
-        },
-        clocksRetrieved: (clocks) => {
-            dispatch(clocksRetrieved(clocks));
         },
     }
 }

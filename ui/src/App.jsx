@@ -43,7 +43,7 @@ class App extends React.Component {
                 <Switch>
                     {/* <Route exact path="/" component={}/> */}
                     <RouteWrapper path="/register" component={Registration}
-                        registrationRequest={this.props.registrationRequest}
+                        sendRegistrationRequest={this.props.sendRegistrationRequest}
                     />
                     <RouteWrapper path="/login" component={Login}
                         sendLoginRequest={this.props.sendLoginRequest}
@@ -79,7 +79,7 @@ const mapDispatchToProps = (dispatch) => {
         sendLogoutRequest: (history) => {
             dispatch(logoutRequest(history));
         },
-        registrationRequest: (email, password) => {
+        sendRegistrationRequest: (email, password) => {
             dispatch(registrationRequest(email, password));
         },
         sendVerificationRequest: (email, code) => {

@@ -3,21 +3,20 @@ import {
     AUTHENTICATION_CHECK_SUCCESS,
     AUTHENTICATION_CHECK_FAIL,
     REGISTRATION_REQUEST,
-    REGISTRATION_SUCCESSFUL,
-    REGISTRATION_FAILED,
+    REGISTRATION_SUCCESS,
+    REGISTRATION_FAIL,
     VERIFICATION_NEEDED,
     VERIFICATION_REQUEST,
-    VERIFICATION_SUCCESSFUL,
-    VERIFICATION_FAILED,
+    VERIFICATION_SUCCESS,
+    VERIFICATION_FAIL,
     LOGIN_REQUEST,
-    LOGIN_SUCCESSFUL,
+    LOGIN_SUCCESS,
     LOGOUT_REQUEST,
-    LOGOUT_SUCCESSFUL,
-    LOGIN_FAILED,
+    LOGOUT_SUCCESS,
+    LOGIN_FAIL,
     CLOCKS_REQUEST,
-    CLOCKS_REQUEST_SUCCEEDED,
-    CLOCKS_REQUEST_FAILED,
-    CLOCKS_RETRIEVED, 
+    CLOCKS_REQUEST_SUCCESS,
+    CLOCKS_REQUEST_FAIL,
 } from "./types";
 
 export function authenticationCheckRequest() {
@@ -50,14 +49,14 @@ export function registrationRequest(email, password) {
 
 export function registrationSucceeded(email) {
     return {
-        type: REGISTRATION_SUCCESSFUL,
+        type: REGISTRATION_SUCCESS,
         email
     }
 }
 
 export function registrationFailed(message) {
     return {
-        type: REGISTRATION_FAILED,
+        type: REGISTRATION_FAIL,
         message,
     };
 }
@@ -79,13 +78,13 @@ export function verificationRequest(email, code) {
 
 export function verificationSucceeded() {
     return {
-        type: VERIFICATION_SUCCESSFUL,
+        type: VERIFICATION_SUCCESS,
     };
 }
 
 export function verificationFailed(message) {
     return {
-        type: VERIFICATION_FAILED,
+        type: VERIFICATION_FAIL,
         message,
     };
 }
@@ -102,14 +101,14 @@ export function loginRequest(email, password, history) {
 
 export function loginSuccessful(user) {
     return {
-        type: LOGIN_SUCCESSFUL,
+        type: LOGIN_SUCCESS,
         user,
     };
 }
 
 export function loginFailed(message) {
     return {
-        type: LOGIN_FAILED,
+        type: LOGIN_FAIL,
         message,
     };
 }
@@ -124,7 +123,7 @@ export function logoutRequest(history) {
 
 export function logoutSuccessful() {
     return {
-        type: LOGOUT_SUCCESSFUL,
+        type: LOGOUT_SUCCESS,
     };
 }
 
@@ -137,21 +136,14 @@ export function clocksRequest(email) {
 
 export function clocksRequestSucceeded(clocks) {
     return {
-        type: CLOCKS_REQUEST_SUCCEEDED,
+        type: CLOCKS_REQUEST_SUCCESS,
         clocks,
     };
 }
 
 export function clocksRequestFailed(message) {
     return {
-        type: CLOCKS_REQUEST_FAILED,
+        type: CLOCKS_REQUEST_FAIL,
         message,
-    };
-}
-
-export function clocksRetrieved(clocks) {
-    return {
-        type: CLOCKS_RETRIEVED,
-        clocks,
     };
 }

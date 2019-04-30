@@ -4,15 +4,14 @@ import {
     AUTHENTICATION_CHECK_REQUEST,
     AUTHENTICATION_CHECK_SUCCESS,
     AUTHENTICATION_CHECK_FAIL,
-    LOGIN_SUCCESSFUL,
-    LOGOUT_SUCCESSFUL,
-    REGISTRATION_FAILED,
-    REGISTRATION_SUCCESSFUL,
+    LOGIN_SUCCESS,
+    LOGOUT_SUCCESS,
+    REGISTRATION_FAIL,
+    REGISTRATION_SUCCESS,
     VERIFICATION_NEEDED,
     CLOCKS_REQUEST,
-    CLOCKS_REQUEST_SUCCEEDED,
-    CLOCKS_REQUEST_FAILED,
-    CLOCKS_RETRIEVED,
+    CLOCKS_REQUEST_SUCCESS,
+    CLOCKS_REQUEST_FAIL,
 } from 'actions/types';
 
 const user = (state = {}, action) => {
@@ -22,15 +21,15 @@ const user = (state = {}, action) => {
             return {
                 email: action.email,
             };
-        case LOGIN_SUCCESSFUL:
+        case LOGIN_SUCCESS:
             return {
                 ...action.user
             };
-        case LOGOUT_SUCCESSFUL:
+        case LOGOUT_SUCCESS:
             return {};
-        case REGISTRATION_FAILED:
+        case REGISTRATION_FAIL:
             return {};
-        case REGISTRATION_SUCCESSFUL:
+        case REGISTRATION_SUCCESS:
         case VERIFICATION_NEEDED:
             return {
                 email: action.email,
@@ -42,12 +41,10 @@ const user = (state = {}, action) => {
 
 const clocks = (state = [], action) => {
     switch (action.type) {
-        case LOGOUT_SUCCESSFUL:
+        case LOGOUT_SUCCESS:
             return [];
-        case CLOCKS_REQUEST_SUCCEEDED:
+        case CLOCKS_REQUEST_SUCCESS:
             console.log("action from clocks request successful: ", action);
-            return [...action.clocks];
-        case CLOCKS_RETRIEVED:
             return [...action.clocks];
         default:
             return state;
@@ -63,8 +60,8 @@ const loading = (state = {app: false, dashboard: false}, action) => {
             return { ...state, app: false }
         case CLOCKS_REQUEST:
             return { ...state, dashboard: true };
-        case CLOCKS_REQUEST_SUCCEEDED:
-        case CLOCKS_REQUEST_FAILED:
+        case CLOCKS_REQUEST_SUCCESS:
+        case CLOCKS_REQUEST_FAIL:
             return { ...state, dashboard: false };
         default:
             return state;
@@ -73,7 +70,7 @@ const loading = (state = {app: false, dashboard: false}, action) => {
 
 const error = (state = { dashboard: false }, action) => {
     switch(action.type) {
-        case CLOCKS_REQUEST_FAILED:
+        case CLOCKS_REQUEST_FAIL:
             return { ...state,
                 dashboard: {
                     flag: true,

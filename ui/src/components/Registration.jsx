@@ -30,9 +30,9 @@ export default class Registration extends React.Component {
 
     handleSubmit = async event => {
         event.preventDefault();
-        let { registrationRequest } = this.props;
+        let { sendRegistrationRequest } = this.props;
 
-        registrationRequest(event.target.email.value, event.target.password.value);
+        sendRegistrationRequest(event.target.email.value, event.target.password.value);
     }
 
     render() {
