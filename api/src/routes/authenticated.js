@@ -24,7 +24,7 @@ const authenticated = (req, res, next) => {
     //     });
     // }
     // let token = req.body.token;
-    console.log("Token passed to authenticated middleware: ", token);
+    // console.log("Token passed to authenticated middleware: ", token);
 
     let sections = token.split('.');
     let decoded = jose.util.base64url.decode(sections[0]);
@@ -87,6 +87,14 @@ const authenticated = (req, res, next) => {
 }
 
 router.use(authenticated);
+
+router.post('/', (req, res) => {
+    console.log("authentication check");
+    res.status(200).json({
+        email: req.jwtClaims.email,
+    });
+    return;
+});
 
 // https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.js
 router.post('/clocks', async (req, res) => {
