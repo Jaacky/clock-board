@@ -32,7 +32,7 @@ export default class Registration extends React.Component {
         event.preventDefault();
         let { sendRegistrationRequest } = this.props;
 
-        sendRegistrationRequest(event.target.email.value, event.target.password.value);
+        sendRegistrationRequest(event.target.email.value, event.target.password.value, this.props.history);
     }
 
     render() {

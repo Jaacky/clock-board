@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { history } from 'store';
+import { history as storeHistory } from 'store';
 
 import {
     AUTHENTICATION_CHECK_REQUEST,
@@ -38,10 +38,10 @@ function* authenticationCheck() {
         console.log("json response from submit", json);
         if (response.ok){
             yield put(authenticationCheckSucceeded(json.email));
-            history.push("/dashboard");
+            storeHistory.push("/dashboard");
         } else {
             yield put(authenticationCheckFailed(json.error));
-            history.push("/");
+            storeHistory.push("/");
         }
     } catch(err) {
         console.log("Err in authentication check saga", err);
@@ -52,7 +52,7 @@ export function* watchAuthenticationCheck() {
     yield takeEvery(AUTHENTICATION_CHECK_REQUEST, authenticationCheck);
 }
 
-function* registration({email, password}) {
+function* registration({email, password, history}) {
     console.log("registration saga! emial:pass", email, password)
     try {
         const response = yield call(fetch, "/api/signup", {
@@ -71,7 +71,6 @@ function* registration({email, password}) {
         console.log("json response from submit", json);
         if (response.ok){
             yield put(registrationSucceeded(json.email));
-            console.log("Pushing to verification");
             history.push("/verification");
         } else {
             yield put(registrationFailed(json.error));

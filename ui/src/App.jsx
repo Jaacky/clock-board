@@ -79,8 +79,8 @@ const mapDispatchToProps = (dispatch) => {
         sendLogoutRequest: (history) => {
             dispatch(logoutRequest(history));
         },
-        sendRegistrationRequest: (email, password) => {
-            dispatch(registrationRequest(email, password));
+        sendRegistrationRequest: (email, password, history) => {
+            dispatch(registrationRequest(email, password, history));
         },
         sendVerificationRequest: (email, code) => {
             dispatch(verificationRequest(email, code));

@@ -39,11 +39,12 @@ export function authenticationCheckFailed(message) {
     };
 }
 
-export function registrationRequest(email, password) {
+export function registrationRequest(email, password, history) {
     return {
         type: REGISTRATION_REQUEST,
         email,
         password,
+        history,
     };
 }
 
