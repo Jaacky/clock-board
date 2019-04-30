@@ -13,9 +13,9 @@ import {
 import {
     authenticationCheckSucceeded,
     authenticationCheckFailed,
-    loginSuccessful,
+    loginSucceeded,
     loginFailed,
-    logoutSuccessful,
+    logoutSucceeded,
     registrationSucceeded,
     registrationFailed,
     verficiationNeeded,
@@ -118,7 +118,7 @@ export function* watchVerification() {
 function* login({email, password, history}) {
     console.log("login saga, action: ", email, password);
     // NO INTERNET TEST
-    // yield put(loginSuccessful({idToken: "123"}));
+    // yield put(loginSucceeded({idToken: "123"}));
     // return
     // END NO INTERNET TEST
     try {
@@ -143,7 +143,7 @@ function* login({email, password, history}) {
                 history.push("/verification");
                 return;
             } else {
-                yield put(loginSuccessful({ email }));
+                yield put(loginSucceeded({ email }));
                 history.push("/dashboard");
                 yield testCookie();
                 return;
@@ -174,7 +174,7 @@ function* logout({history}) {
         const json = yield response.json();
         console.log("json response from submit", json);
         if (response.ok) {
-            yield put(logoutSuccessful());
+            yield put(logoutSucceeded());
             history.push("/");
             return;
         }

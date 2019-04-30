@@ -99,7 +99,7 @@ export function loginRequest(email, password, history) {
     };
 }
 
-export function loginSuccessful(user) {
+export function loginSucceeded(user) {
     return {
         type: LOGIN_SUCCESS,
         user,
@@ -121,7 +121,7 @@ export function logoutRequest(history) {
     };
 }
 
-export function logoutSuccessful() {
+export function logoutSucceeded() {
     return {
         type: LOGOUT_SUCCESS,
     };
