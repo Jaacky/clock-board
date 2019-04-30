@@ -109,8 +109,6 @@ router.post('/signin', (req, res, next) => {
             req.session.jwt = idToken;
 
             res.status(200).json({
-                accessToken,
-                idToken,
                 newUser: false,
             });
             return;
