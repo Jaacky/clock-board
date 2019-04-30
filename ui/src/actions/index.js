@@ -99,10 +99,10 @@ export function loginRequest(email, password, history) {
     };
 }
 
-export function loginSucceeded(user) {
+export function loginSucceeded(email) {
     return {
         type: LOGIN_SUCCESS,
-        user,
+        email,
     };
 }
 

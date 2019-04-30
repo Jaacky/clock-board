@@ -18,12 +18,9 @@ const user = (state = {}, action) => {
     console.log("User reducer: action", action);
     switch (action.type) {
         case AUTHENTICATION_CHECK_SUCCESS:
-            return {
-                email: action.email,
-            };
         case LOGIN_SUCCESS:
             return {
-                ...action.user
+                email: action.email,
             };
         case LOGOUT_SUCCESS:
             return {};

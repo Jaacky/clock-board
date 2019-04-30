@@ -71,6 +71,7 @@ function* registration({email, password}) {
         console.log("json response from submit", json);
         if (response.ok){
             yield put(registrationSucceeded(json.email));
+            console.log("Pushing to verification");
             history.push("/verification");
         } else {
             yield put(registrationFailed(json.error));
@@ -143,7 +144,7 @@ function* login({email, password, history}) {
                 history.push("/verification");
                 return;
             } else {
-                yield put(loginSucceeded({ email }));
+                yield put(loginSucceeded(email));
                 history.push("/dashboard");
                 yield testCookie();
                 return;
