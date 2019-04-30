@@ -13,6 +13,7 @@ import Verification from 'components/Verification';
 
 import {
     loginRequest,
+    logoutRequest,
     registrationRequest,
     verificationRequest,
 } from 'actions';
@@ -25,7 +26,9 @@ class App extends React.Component {
     render() {
         return(
             <div>
-                <Header />
+                <Header
+                    sendLogoutRequest={this.props.sendLogoutRequest}
+                />
                 <Switch>
                     {/* <Route exact path="/" component={}/> */}
                     <RouteWrapper path="/register" component={Registration}
@@ -57,6 +60,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         sendLoginRequest: (email, password, history) => {
             dispatch(loginRequest(email, password, history));
+        },
+        sendLogoutRequest: (history) => {
+            dispatch(logoutRequest(history));
         },
         registrationRequest: (email, password) => {
             dispatch(registrationRequest(email, password));

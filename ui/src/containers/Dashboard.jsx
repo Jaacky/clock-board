@@ -91,6 +91,23 @@ class Dashboard extends React.Component {
         }
     }
 
+    async testCookie() {
+        console.log("testCookie called");
+        try {
+            const response = await fetch("/api/", {
+                method: "POST",
+            });
+            console.log("Response yielded: ", response);
+            console.log("response ok: ", response.ok);
+            const json = await response.json();
+            console.log("json response from test cookie", json);
+            return json;
+        } catch (err) {
+            console.log("Error in test cookie", err);
+            return {};
+        }
+    }
+
     render() {
         console.log("this.props", this.props);
         if (this.props.loading) {
@@ -116,6 +133,7 @@ class Dashboard extends React.Component {
         ]
         return (
             <div>
+                <button onClick={this.testCookie}>Test Cookie</button>
                 <form onSubmit={this.handleSubmit} className={styles.form}>
                     <input
                         name="countdownEndDate"

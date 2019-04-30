@@ -11,16 +11,12 @@ import {
 } from 'actions';
 
 function* requestClocks() {
-    let token = "placeholder token";
     try {
         const response = yield call(fetch, "/api/authenticated/clocks", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                token,
-            }),
         });
         console.log("Response yielded: ", response);
         console.log("response ok: ", response.ok);

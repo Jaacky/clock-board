@@ -8,6 +8,8 @@ import {
     VERIFICATION_FAILED,
     LOGIN_REQUEST,
     LOGIN_SUCCESSFUL,
+    LOGOUT_REQUEST,
+    LOGOUT_SUCCESSFUL,
     LOGIN_FAILED,
     CLOCKS_REQUEST,
     CLOCKS_REQUEST_SUCCEEDED,
@@ -86,6 +88,20 @@ export function loginFailed(message) {
     return {
         type: LOGIN_FAILED,
         message,
+    };
+}
+
+export function logoutRequest(history) {
+    console.log("logout Request called, history", history);
+    return {
+        type: LOGOUT_REQUEST,
+        history,
+    };
+}
+
+export function logoutSuccessful() {
+    return {
+        type: LOGOUT_SUCCESSFUL,
     };
 }
 

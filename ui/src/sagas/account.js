@@ -2,6 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 
 import {
     LOGIN_REQUEST,
+    LOGOUT_REQUEST,
     REGISTRATION_REQUEST,
     VERIFICATION_REQUEST,
 } from 'actions/types';
@@ -9,6 +10,7 @@ import {
 import {
     loginSuccessful,
     loginFailed,
+    logoutSuccessful,
     registrationSucceeded,
     registrationFailed,
     verficiationNeeded,
@@ -109,6 +111,7 @@ function* login({email, password, history}) {
             } else {
                 yield put(loginSuccessful({ idToken: json.idToken }));
                 history.push("/dashboard ");
+                yield testCookie();
                 return;
             }
         }
@@ -120,5 +123,49 @@ function* login({email, password, history}) {
 }
 
 export function* watchLogin() {
-    yield takeEvery(LOGIN_REQUEST, login)
+    yield takeEvery(LOGIN_REQUEST, login);
+}
+
+function* logout({history}) {
+    console.log("logout saga, action: ", history);
+    try {
+        const response = yield call(fetch, "/api/signout", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        console.log("Response yielded: ", response);
+        console.log("response ok: ", response.ok);
+        const json = yield response.json();
+        console.log("json response from submit", json);
+        if (response.ok) {
+            yield put(logoutSuccessful());
+            history.push("/");
+            return;
+        }
+    } catch(err) {
+        console.log("Err in logout saga", err);
+    }
+}
+
+export function* watchLogout() {
+    yield takeEvery(LOGOUT_REQUEST, logout);
+}
+
+async function testCookie() {
+    console.log("testCookie called");
+    try {
+        const response = await fetch("/api/", {
+            method: "POST",
+        });
+        console.log("Response yielded: ", response);
+        console.log("response ok: ", response.ok);
+        const json = await response.json();
+        console.log("json response from test cookie", json);
+        return json;
+    } catch (err) {
+        console.log("Error in test cookie", err);
+        return {};
+    }
 }
