@@ -1,4 +1,7 @@
 import {
+    AUTHENTICATION_CHECK_REQUEST,
+    AUTHENTICATION_CHECK_SUCCESS,
+    AUTHENTICATION_CHECK_FAIL,
     REGISTRATION_REQUEST,
     REGISTRATION_SUCCESSFUL,
     REGISTRATION_FAILED,
@@ -16,6 +19,26 @@ import {
     CLOCKS_REQUEST_FAILED,
     CLOCKS_RETRIEVED, 
 } from "./types";
+
+export function authenticationCheckRequest() {
+    return {
+        type: AUTHENTICATION_CHECK_REQUEST,
+    };
+}
+
+export function authenticationCheckSucceeded(email) {
+    return {
+        type: AUTHENTICATION_CHECK_SUCCESS,
+        email,
+    };
+}
+
+export function authenticationCheckFailed(message) {
+    return {
+        type: AUTHENTICATION_CHECK_FAIL,
+        message,
+    };
+}
 
 export function registrationRequest(email, password) {
     return {

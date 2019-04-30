@@ -1,6 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
+import { history } from 'store';
+
 import {
+    AUTHENTICATION_CHECK_REQUEST,
     LOGIN_REQUEST,
     LOGOUT_REQUEST,
     REGISTRATION_REQUEST,
@@ -8,6 +11,8 @@ import {
 } from 'actions/types';
 
 import {
+    authenticationCheckSucceeded,
+    authenticationCheckFailed,
     loginSuccessful,
     loginFailed,
     logoutSuccessful,
@@ -17,6 +22,35 @@ import {
     verificationSucceeded,
     verificationFailed,
 } from 'actions';
+
+function* authenticationCheck() {
+    console.log("authentcation check saga");
+    try {
+        const response = yield call(fetch, "/api/authenticated", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        console.log("Response yielded: ", response);
+        console.log("response ok: ", response.ok);
+        const json = yield response.json();
+        console.log("json response from submit", json);
+        if (response.ok){
+            yield put(authenticationCheckSucceeded(json.email));
+            history.push("/dashboard");
+        } else {
+            yield put(authenticationCheckFailed(json.error));
+            history.push("/");
+        }
+    } catch(err) {
+        console.log("Err in authentication check saga", err);
+    }
+}
+
+export function* watchAuthenticationCheck() {
+    yield takeEvery(AUTHENTICATION_CHECK_REQUEST, authenticationCheck);
+}
 
 function* registration({email, password}) {
     console.log("registration saga! emial:pass", email, password)
@@ -109,7 +143,7 @@ function* login({email, password, history}) {
                 history.push("/verification");
                 return;
             } else {
-                yield put(loginSuccessful({ idToken: json.idToken }));
+                yield put(loginSuccessful({ email }));
                 history.push("/dashboard");
                 yield testCookie();
                 return;

@@ -1,6 +1,7 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 
 import {
+    watchAuthenticationCheck,
     watchLogin,
     watchLogout,
     watchRegistration,
@@ -13,6 +14,7 @@ import {
 
 export default function* rootSaga() {
     yield all([
+        watchAuthenticationCheck(),
         watchLogin(),
         watchLogout(),
         watchRegistration(),

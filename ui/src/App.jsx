@@ -12,6 +12,7 @@ import Registration from 'components/Registration';
 import Verification from 'components/Verification';
 
 import {
+    authenticationCheckRequest,
     loginRequest,
     logoutRequest,
     registrationRequest,
@@ -23,10 +24,15 @@ class App extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        this.props.sendAuthenticationCheckRequest();
+    }
+
     render() {
         return(
             <div>
                 <Header
+                    user={this.props.user}
                     sendLogoutRequest={this.props.sendLogoutRequest}
                 />
                 <Switch>
@@ -58,6 +64,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        sendAuthenticationCheckRequest: () => {
+            dispatch(authenticationCheckRequest());
+        },
         sendLoginRequest: (email, password, history) => {
             dispatch(loginRequest(email, password, history));
         },

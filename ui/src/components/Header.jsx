@@ -13,23 +13,35 @@ class Header extends React.Component {
     }
 
     render() {
+        console.log("Header props user", this.props.user);
+        console.log(this.props.user.email);
+        let links = [
+            <Link key="headerHome" to="/">
+                <button>Home</button>
+            </Link>,
+        ];
+        if (this.props.user.email) {
+            links = links.concat([
+                <Link key="headerDashboard" to="/dashboard">
+                    <button>Dashboard</button>
+                </Link>,
+                <button key="headerLogout" onClick={this.handleLogout}>Logout</button>
+            ]);
+        } else {
+            links = links.concat([
+                <Link key="headerRegister" to="/register">
+                    <button>Sign Up</button>
+                </Link>,
+                <Link key="headerLogin" to="/login">
+                    <button>Login</button>
+                </Link>,
+            ]);
+        }
         return(
             <div className={styles.header}>
-                <Link to="/">
-                    <button>Home</button>
-                </Link>
-                <Link to="/register">
-                    <button>Sign Up</button>
-                </Link>
-                <Link to="/login">
-                    <button>Login</button>
-                </Link>
-                <button onClick={this.handleLogout}>Logout</button>
-                <Link to="/verification">
+                {links}
+                <Link key="headerVerification" to="/verification">
                     <button>Verification</button>
-                </Link>
-                <Link to="/dashboard">
-                    <button>Dashboard</button>
                 </Link>
             </div>
         )
