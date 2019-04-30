@@ -110,7 +110,7 @@ function* login({email, password, history}) {
                 return;
             } else {
                 yield put(loginSuccessful({ idToken: json.idToken }));
-                history.push("/dashboard ");
+                history.push("/dashboard");
                 yield testCookie();
                 return;
             }
