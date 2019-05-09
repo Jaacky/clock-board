@@ -1,11 +1,53 @@
+@import '~modularscale-sass/stylesheets/modularscale';
+
+$modularscale: (
+    base: 1em,
+    ratio: 1.5
+);
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
 }
 
-.header {
-    width: 100%;
+li {
+    list-style-type: none;
 }
 
+a {
+    color: black;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+.header {
+    width: 100%;
+    padding: 20px;
+}
+
+.logo {
+    font-size: ms(2);
+    text-transform: uppercase;
+}
 
 form {
     padding: 25px;

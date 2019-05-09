@@ -17,7 +17,7 @@ class Header extends React.Component {
         console.log(this.props.user.email);
         let links = [
             <Link key="headerHome" to="/">
-                <button>Home</button>
+                <div className={styles.logo}>Clock Board</div>
             </Link>,
         ];
         if (this.props.user.email) {
