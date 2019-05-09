@@ -11,6 +11,7 @@ class Landing extends React.Component {
             countdownEndDate: "",
             countdownEndTime: "",
             clocks: [],
+            error: ""
         };
     }
 
@@ -24,6 +25,12 @@ class Landing extends React.Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
+        if (this.state.countdownEndTime === "" || this.state.countdownEndDate === "") {
+            this.setState({
+                error: "Please specify a valid date",
+            });
+            return
+        }
 
         let year = this.state.countdownEndDate.slice(0, 4);
         let month = this.state.countdownEndDate.slice(5, 7) - 1;
@@ -39,6 +46,14 @@ class Landing extends React.Component {
             countdownEndDate: "",
             countdownEndTime: ""
         })
+    }
+
+    renderError() {
+        if (this.state.error !== "") {
+            return (
+                <h2 className={styles.error}>{this.state.error}</h2>
+            )
+        }
     }
 
     render() {
@@ -66,6 +81,7 @@ class Landing extends React.Component {
         ]
         return (
             <div>
+                {this.renderError()}
                 <form onSubmit={this.handleSubmit} className={styles.form}>
                     <input
                         name="countdownEndDate"
@@ -85,7 +101,7 @@ class Landing extends React.Component {
                         Add Countdown
                     </button>
                 </form>
-                
+
                 <div className={styles.clocks}>
                     {testClocks}
                     {clocks}
