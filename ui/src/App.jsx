@@ -10,6 +10,7 @@ import Header from './components/Header';
 import Login from 'components/Login';
 import Registration from 'components/Registration';
 import Verification from 'components/Verification';
+import Landing from 'components/Landing';
 
 import {
     authenticationCheckRequest,
@@ -41,6 +42,7 @@ class App extends React.Component {
                     sendLogoutRequest={this.props.sendLogoutRequest}
                 />
                 <Switch>
+                    <RouteWrapper path="/" component={Landing}/>
                     {/* <Route exact path="/" component={}/> */}
                     <RouteWrapper path="/register" component={Registration}
                         sendRegistrationRequest={this.props.sendRegistrationRequest}
