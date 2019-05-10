@@ -16,8 +16,8 @@ class Header extends React.Component {
         console.log("Header props user", this.props.user);
         console.log(this.props.user.email);
         let links = [
-            <Link key="headerHome" to="/">
-                <div className={styles.logo}>Clock Board</div>
+            <Link className={styles.logo} key="headerHome" to="/">
+                <div>Clock Board</div>
             </Link>,
         ];
         if (this.props.user.email) {
@@ -30,7 +30,7 @@ class Header extends React.Component {
         } else {
             links = links.concat([
                 <Link key="headerRegister" to="/register">
-                    <button>Sign Up</button>
+                    <button className={styles.signUp}>Sign Up</button>
                 </Link>,
                 <Link key="headerLogin" to="/login">
                     <button>Login</button>
