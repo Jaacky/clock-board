@@ -60,8 +60,11 @@ button:hover {
 
     .logo {
         font-size: ms(2);
-        text-transform: uppercase;
+        // text-transform: uppercase;
         margin-right: auto;
+        div {
+            font-family: Arkipelago;
+        }
     }
 
     a {
@@ -72,6 +75,7 @@ button:hover {
         background-color: transparent;
         color: $primary_light;
         font-size: ms(0);
+        padding: 6px 8px;
         &:hover {
             border-bottom: 2px solid $primary_light;
         }
@@ -83,6 +87,7 @@ button:hover {
         &:hover{
             // border-bottom: none;
             margin-bottom: 2px;
+            // background-color: $primary_light_fade;
         }
     }
 
@@ -144,6 +149,7 @@ form {
 
         div {
             padding: 3px;
+            font-family: Arkipelago;
         }
     }
 }
