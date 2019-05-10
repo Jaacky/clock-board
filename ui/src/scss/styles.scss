@@ -10,7 +10,7 @@ $modularscale: (
 
 * {
     box-sizing: border-box;
-    font-family: Space Grotesk;
+    font-family: "Space Grotesk", sans-serif;
     line-height: 1.61803398875; // golden ratio
 }
 
@@ -59,7 +59,7 @@ button {
         // text-transform: uppercase;
         margin-right: auto;
         div {
-            font-family: Arkipelago;
+            font-family: "Arkipelago", sans-serif;
         }
     }
 
@@ -116,7 +116,7 @@ button {
     
             div {
                 padding: 3px;
-                font-family: Arkipelago;
+                font-family: "Arkipelago", sans-serif;
                 font-size: ms(1);
             }
         }
@@ -129,7 +129,7 @@ button {
     
         h1 {
             flex-basis: 100%;
-            font-family: Arkipelago;
+            font-family: "Arkipelago", sans-serif;
             text-align: center;
             color: $primary_dark;
             
@@ -153,10 +153,6 @@ button {
                 font-size: ms(0);
                 padding: 8px;
                 border: 0;
-                
-                &:first-of-type {
-                    margin-top: 0;
-                }
 
                 &::-webkit-datetime-edit,
                 &::-webkit-clear-button,
@@ -165,10 +161,14 @@ button {
                 {
                     opacity: 1;
                 }
+
+                &:first-of-type {
+                    margin-top: 0;
+                }
             }
 
             button {
-                font-family: Arkipelago;
+                font-family: "Arkipelago", sans-serif;
                 font-size: ms(1);
                 transition: box-shadow 0.5s ease;
                 &:hover {

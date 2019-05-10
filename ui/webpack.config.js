@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const postcssPresetEnv = require('postcss-preset-env');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
     mode: "development",
@@ -49,7 +50,7 @@ module.exports = {
                         options: {
                             ident: 'postcss',
                             plugins: () => [
-                                postcssPresetEnv()
+                                postcssPresetEnv() // includes autoprefixer
                             ]
                         }
                     },
@@ -69,6 +70,14 @@ module.exports = {
         ],
     },
     plugins: [
+        new StyleLintPlugin({
+            configFile: '.stylelintrc',
+            context: 'src',
+            files: '**/*.scss',
+            failOnError: false,
+            quiet: false,
+            syntax: 'scss'
+        }),
         new HtmlWebPackPlugin({
             template: "./src/static/index.html",
             filename: "index.html",
