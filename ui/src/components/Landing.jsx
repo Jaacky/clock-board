@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../scss/styles.scss';
 
 import Clock from '../components/Clock.jsx';
+import ClockForm from 'components/ClockForm';
 
 class Landing extends React.Component {
     constructor(props) {
@@ -39,13 +40,37 @@ class Landing extends React.Component {
         let minutes = this.state.countdownEndTime.slice(3)
 
         let date = new Date(year, month, day, hours, minutes);
-        let clock = { endTime: date }
+        console.log(date);
+        let clock = { ends_at: date }
 
         this.setState({
             clocks: [...this.state.clocks, clock],
             countdownEndDate: "",
             countdownEndTime: ""
         })
+    }
+
+    handleInMemoryClockSubmit = (clock) => {
+        this.setState({
+            clocks: [...this.state.clocks, clock],
+        });
+    }
+
+    renderForm() {
+        if (this.state.clocks.length > 0) {
+            return (
+                <div>
+                    <h2>Please login to:</h2>
+                    <p>Create more clocks</p>
+                    <p>Save clocks</p>
+                </div>
+            )
+        }
+        return (
+            <ClockForm
+                onSubmit={this.handleInMemoryClockSubmit}
+            />
+        )
     }
 
     renderError() {
@@ -57,54 +82,30 @@ class Landing extends React.Component {
     }
 
     render() {
-        console.log("this.props", this.props);
         if (this.props.loading) {
             return (
                 <h1>Loading clocks...</h1>
             )
         }
-        // this.renderUserClocks();
-        // console.log(this.state.clocks);
         let clocks = this.state.clocks.length == 0
-            ? <p>Please add a clock</p>
+            ? <div className={styles.clockPlaceholder}>
+                <h1>Please add a clock</h1>
+            </div>
             : this.state.clocks.map((clock) => (
                 <Clock endTime={new Date(clock["ends_at"])}/>
             ))
 
         let testClocks = [
-            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />
+            <Clock endTime={new Date("2019-06-13T00:00:00.000Z")} />,
         ]
         return (
-            <div>
+            <div className={styles.landing}>
                 {this.renderError()}
-                <form onSubmit={this.handleSubmit} className={styles.form}>
-                    <input
-                        name="countdownEndDate"
-                        type="date"
-                        onChange={this.handleChange}
-                        value={this.state.countdownEndDate}
-                    />
-                    <input
-                        name="countdownEndTime"
-                        type="time"
-                        onChange={this.handleChange}
-                        value={this.state.countdownEndTime}
-                    />
-                    <button
-                        type="submit"
-                    >
-                        Add Countdown
-                    </button>
-                </form>
-
+                
                 <div className={styles.clocks}>
                     {testClocks}
                     {clocks}
+                    {this.renderForm()}
                 </div>
             </div>
         )
