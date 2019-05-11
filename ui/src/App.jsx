@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { withRouter, Switch } from 'react-router-dom';
 
 import Dashboard from './containers/Dashboard';
 
@@ -26,8 +26,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        // Fires a history push event after success/fail, which will cause component to remount and fires this again -> infinite loop
-        // this.props.sendAuthenticationCheckRequest();
+        this.props.sendAuthenticationCheckRequest(this.props.history);
     }
 
     render() {
@@ -76,8 +75,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        sendAuthenticationCheckRequest: () => {
-            dispatch(authenticationCheckRequest());
+        sendAuthenticationCheckRequest: (history) => {
+            dispatch(authenticationCheckRequest(history));
         },
         sendLoginRequest: (email, password, history) => {
             dispatch(loginRequest(email, password, history));
@@ -94,10 +93,10 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-const AppContainer = connect(
+const AppContainer = withRouter(connect(
     mapStateToProps,
     mapDispatchToProps,
-)(App);
+)(App));
 
 export default AppContainer;
 

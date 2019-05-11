@@ -19,9 +19,11 @@ import {
     CLOCKS_REQUEST_FAIL,
 } from "./types";
 
-export function authenticationCheckRequest() {
+export function authenticationCheckRequest(history) {
+    console.log(history);
     return {
         type: AUTHENTICATION_CHECK_REQUEST,
+        history
     };
 }
 

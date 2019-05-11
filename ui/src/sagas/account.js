@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { history as storeHistory } from 'store';
+// import { history as storeHistory } from 'store';
 
 import {
     AUTHENTICATION_CHECK_REQUEST,
@@ -23,7 +23,7 @@ import {
     verificationFailed,
 } from 'actions';
 
-function* authenticationCheck() {
+function* authenticationCheck({history}) {
     console.log("authentcation check saga");
     try {
         const response = yield call(fetch, "/api/authenticated", {
@@ -38,10 +38,10 @@ function* authenticationCheck() {
         console.log("json response from submit", json);
         if (response.ok){
             yield put(authenticationCheckSucceeded(json.email));
-            storeHistory.push("/dashboard");
+            history.push("/dashboard");
         } else {
             yield put(authenticationCheckFailed(json.error));
-            storeHistory.push("/");
+            history.push("/");
         }
     } catch(err) {
         console.log("Err in authentication check saga", err);
