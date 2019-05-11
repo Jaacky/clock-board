@@ -22,24 +22,26 @@ export default class Verification extends React.Component {
     render() {
         return (
             <div className={styles.clocks}>
-                <div className={styles.clockPlaceholder}>
-                    <form className={styles.form} onSubmit={this.handleConfirmationSubmit}>
-                        <h1>Verification</h1>
-                        <label>Confirmation code:</label>
-                        <input
-                            autoFocus
-                            name="confirmationCode"
-                            type="tel"
-                            placeholder="Confirmation code"
-                        />
-                        <label>&nbsp;</label> {/* Equalize spacing between inputs and button */}
-                        <button
-                            type="submit"
-                            disabled={this.state.isLoading}
-                        >
-                        {this.state.isLoading ? "Verifying" : "Verify" }
-                        </button>
-                    </form>
+                <div className={styles.clockBox}>
+                    <div className={styles.clockPlaceholder}>
+                        <form className={styles.form} onSubmit={this.handleConfirmationSubmit}>
+                            <h1>Verification</h1>
+                            <label>Confirmation code:</label>
+                            <input
+                                autoFocus
+                                name="confirmationCode"
+                                type="tel"
+                                placeholder="Confirmation code"
+                            />
+                            <label>&nbsp;</label> {/* Equalize spacing between inputs and button */}
+                            <button
+                                type="submit"
+                                disabled={this.state.isLoading}
+                            >
+                            {this.state.isLoading ? "Verifying" : "Verify" }
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         )

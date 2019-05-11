@@ -62,24 +62,26 @@ class ClockForm extends React.Component {
 
     render() {
         return (
-            <div className={styles.clockPlaceholder}>
-                <h1>Countdown to:</h1>
-                <form className={styles.form} onSubmit={this.handleSubmit}>
-                    <input
-                        name="countdownEndDate"
-                        type="date"
-                        onChange={this.handleChange}
-                        value={this.state.countdownEndDate}
-                    />
-                    <input
-                        name="countdownEndTime"
-                        type="time"
-                        onChange={this.handleChange}
-                        value={this.state.countdownEndTime}
-                    />
-                    <button type="submit">Start</button>
-                </form>
-                {this.renderError()}
+            <div className={styles.clockBox}>
+                <div className={styles.clockPlaceholder}>
+                    <h1>Countdown to:</h1>
+                    <form className={styles.form} onSubmit={this.handleSubmit}>
+                        <input
+                            name="countdownEndDate"
+                            type="date"
+                            onChange={this.handleChange}
+                            value={this.state.countdownEndDate}
+                        />
+                        <input
+                            name="countdownEndTime"
+                            type="time"
+                            onChange={this.handleChange}
+                            value={this.state.countdownEndTime}
+                        />
+                        <button type="submit">Start</button>
+                    </form>
+                    {this.renderError()}
+                </div>
             </div>
         )
     }

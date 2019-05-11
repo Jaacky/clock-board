@@ -38,42 +38,44 @@ export default class Registration extends React.Component {
     render() {
         return (
             <div className={styles.clocks}>
-                <div className={styles.clockPlaceholder}>
-                    <form className={styles.form} onSubmit={this.handleSubmit}>
-                        <h1>Sign Up</h1>
-                        <label>Email:</label>
-                        <input
-                            autoFocus
-                            name="email"
-                            type="email"
-                            value={this.state.email}
-                            onChange={this.handleChange}
-                            placeholder="Email"
-                        />
-                        <label>Password:</label>
-                        <input
-                            name="password"
-                            type="password"
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                            placeholder="Password"
-                        />
-                        <label>Confirm password:</label>
-                        <input
-                            name="confirmPassword"
-                            type="password"
-                            value={this.state.confirmPassword}
-                            onChange={this.handleChange}
-                            placeholder="Confirm password"
-                        />
-                        <label>&nbsp;</label> {/* Equalize spacing between inputs and button */}
-                        <button
-                            type="submit"
-                            disabled={!this.validateForm() || this.state.isLoading }
-                        >
-                        {this.state.isLoading ? "Registering" : "Register" }
-                        </button>
-                    </form>
+                <div className={styles.clockBox}>
+                    <div className={styles.clockPlaceholder}>
+                        <form className={styles.form} onSubmit={this.handleSubmit}>
+                            <h1>Sign Up</h1>
+                            <label>Email:</label>
+                            <input
+                                autoFocus
+                                name="email"
+                                type="email"
+                                value={this.state.email}
+                                onChange={this.handleChange}
+                                placeholder="Email"
+                            />
+                            <label>Password:</label>
+                            <input
+                                name="password"
+                                type="password"
+                                value={this.state.password}
+                                onChange={this.handleChange}
+                                placeholder="Password"
+                            />
+                            <label>Confirm password:</label>
+                            <input
+                                name="confirmPassword"
+                                type="password"
+                                value={this.state.confirmPassword}
+                                onChange={this.handleChange}
+                                placeholder="Confirm password"
+                            />
+                            <label>&nbsp;</label> {/* Equalize spacing between inputs and button */}
+                            <button
+                                type="submit"
+                                disabled={!this.validateForm() || this.state.isLoading }
+                            >
+                            {this.state.isLoading ? "Registering" : "Register" }
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         )

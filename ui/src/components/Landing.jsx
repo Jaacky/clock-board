@@ -75,17 +75,19 @@ class Landing extends React.Component {
     renderForm() {
         if (this.state.clocks.length > 0) {
             return (
-                <div className={styles.clockPlaceholder}>
-                    <h1>To create more please:</h1>
-                    <div className={styles.cta}>
-                        <Link key="headerRegister" to="/register">
-                            <button className={styles.signUp}>Sign Up</button>
-                        </Link>
-                    </div>
-                    <div className={styles.cta}>
-                        <Link key="headerLogin" to="/login">
-                            <button className={styles.secondary}>Login</button>
-                        </Link>
+                <div className={styles.clockBox}>
+                    <div className={styles.clockPlaceholder}>
+                        <h1>To create more please:</h1>
+                        <div className={styles.cta}>
+                            <Link key="headerRegister" to="/register">
+                                <button className={styles.signUp}>Sign Up</button>
+                            </Link>
+                        </div>
+                        <div className={styles.cta}>
+                            <Link key="headerLogin" to="/login">
+                                <button className={styles.secondary}>Login</button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             )

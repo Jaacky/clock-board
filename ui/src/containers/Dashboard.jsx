@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styles from '../scss/styles.scss';
 
-import Clock from '../components/Clock.jsx';
+import Clock from 'components/Clock';
+import ClockForm from 'components/ClockForm';
 
 import {
     clocksRequest,
@@ -11,11 +12,6 @@ import {
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            countdownEndDate: "",
-            countdownEndTime: "",
-        };
     }
 
     componentDidMount() {
@@ -23,36 +19,10 @@ class Dashboard extends React.Component {
         this.props.sendClocksRequest(this.props.user.email);
     }
 
-    handleAddClock = () => {
-
-    }
-
-    handleChange = (event) => {
-        // console.log(event);
-        console.log(event.target.name, event.target.value);
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
-
-    handleSubmit = async (event) => {
-        event.preventDefault();
-        // console.log("this.state.countdownEndDate: ", this.state.countdownEndDate);
-        // console.log("this.state.countdownEndTime: ", this.state.countdownEndTime);
-        let year = this.state.countdownEndDate.slice(0, 4);
-        let month = this.state.countdownEndDate.slice(5, 7) - 1;
-        let day = this.state.countdownEndDate.slice(8);
-        let hours = this.state.countdownEndTime.slice(0, 2)
-        let minutes = this.state.countdownEndTime.slice(3)
-
-        let date = new Date(year, month, day, hours, minutes);
-        let clock = { endTime: date }
-
+    handlePersistentClockSubmit = (clock) => {
         this.setState({
             clocks: [...this.state.clocks, clock],
-            countdownEndDate: "",
-            countdownEndTime: ""
-        })
+        });
     }
 
     renderError() {
@@ -87,49 +57,26 @@ class Dashboard extends React.Component {
                 <h1>Loading clocks...</h1>
             )
         }
-        // this.renderUserClocks();
-        // console.log(this.state.clocks);
-        let clocks = this.props.clocks.length == 0
-            ? <p>Please add a clock</p>
-            : this.props.clocks.map((clock) => (
-                <Clock endTime={new Date(clock["ends_at"])}/>
-            ))
+
+        let clocks = this.props.clocks.map((clock) => (
+            <Clock endTime={new Date(clock["ends_at"])}/>
+        ))
 
         let testClocks = [
-            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />,
-            // <Clock endTime={new Date("2019-04-13T00:00:00.000Z")} />
+            // <Clock endTime={new Date("2019-05-17T00:00:00.000Z")} />,
+            // <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
+            // <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
+            // <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
+            // <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
         ]
         return (
             <div>
                 <button onClick={this.testCookie}>Test Cookie</button>
-                <form onSubmit={this.handleSubmit} className={styles.form}>
-                    <input
-                        name="countdownEndDate"
-                        type="date"
-                        onChange={this.handleChange}
-                        value={this.state.countdownEndDate}
-                    />
-                    <input
-                        name="countdownEndTime"
-                        type="time"
-                        onChange={this.handleChange}
-                        value={this.state.countdownEndTime}
-                    />
-                    <button
-                        type="submit"
-                    >
-                        Add Countdown
-                    </button>
-                </form>
                 {this.renderError()}
                 <div className={styles.clocks}>
+                    <ClockForm onSubmit={this.handlePersistentClockSubmit}/>
                     {testClocks}
                     {clocks}
-                    {/* {this.renderUserClocks()} */}
                 </div>
             </div>
         )

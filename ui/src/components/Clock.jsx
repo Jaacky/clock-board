@@ -45,9 +45,11 @@ export default class Clock extends React.Component {
     render() {
         if (this.state.end) {
             return (
-                <div className={styles.clock}>
-                    <h1>Lifted off!</h1>
-                    <p>At {this.props.endTime.toLocaleString()}</p>
+                <div key={this.props.endTime} className={styles.clockBox}>
+                    <div className={styles.clock}>
+                        <h1>Lifted off!</h1>
+                        <p>At {this.props.endTime.toLocaleString()}</p>
+                    </div>
                 </div>
             )
         }
@@ -63,31 +65,33 @@ export default class Clock extends React.Component {
         let days = ((difference - hours) / 24).toString().padStart(2, '0');
 
         return (
-            <div key={this.props.endTime} className={styles.clock}>
-                {/* <p>Now: {this.state.now.toISOString()}</p> */}
-                {/* <p>End: {this.props.endTime.toISOString()}</p> */}
-                <div className={styles.countdown}>
-                    <div className={styles.time}>
-                        <div>{days}</div>
-                        <div>days</div>
+            <div key={this.props.endTime} className={styles.clockBox}>
+                <div className={styles.clock}>
+                    {/* <p>Now: {this.state.now.toISOString()}</p> */}
+                    {/* <p>End: {this.props.endTime.toISOString()}</p> */}
+                    <div className={styles.countdown}>
+                        <div className={styles.time}>
+                            <div>{days}</div>
+                            <div>days</div>
+                        </div>
+                        <div className={styles.time}>
+                            <div>{hours}</div>
+                            <div>hours</div>
+                        </div>
+                        <div className={styles.time}>
+                            <div>{minutes}</div>
+                            <div>minutes</div>
+                        </div>
+                        <div className={styles.time}>
+                            <div>{seconds}</div>
+                            <div>seconds</div>
+                        </div>
                     </div>
-                    <div className={styles.time}>
-                        <div>{hours}</div>
-                        <div>hours</div>
+                    <div>
+                        Until: {this.props.endTime.toLocaleString()}
                     </div>
-                    <div className={styles.time}>
-                        <div>{minutes}</div>
-                        <div>minutes</div>
-                    </div>
-                    <div className={styles.time}>
-                        <div>{seconds}</div>
-                        <div>seconds</div>
-                    </div>
+                    <button onClick={this.props.onStop}>Stop</button>
                 </div>
-                <div>
-                    Until: {this.props.endTime.toLocaleString()}
-                </div>
-                <button onClick={this.props.onStop}>Stop</button>
             </div>
         )
     }

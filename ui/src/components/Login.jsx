@@ -52,16 +52,18 @@ class Login extends React.Component {
     render() {
         return(
             <div className={styles.clocks}>
-                <div className={styles.clockPlaceholder}>
-                    <form className={styles.form} onSubmit={this.handleSubmit}>
-                        <h1>Login</h1>
-                        <label>Email:</label>
-                        <input name="email" type="email" placeholder="Email"/>
-                        <label>Password:</label>
-                        <input name="password" type="password" placeholder="Password"/>
-                        <label>&nbsp;</label> {/* Equalize spacing between inputs and button */}
-                        <button type="submit" disabled={this.state.isLoading}>Login</button>
-                    </form>
+                <div className={styles.clockBox}>
+                    <div className={styles.clockPlaceholder}>
+                        <form className={styles.form} onSubmit={this.handleSubmit}>
+                            <h1>Login</h1>
+                            <label>Email:</label>
+                            <input name="email" type="email" placeholder="Email"/>
+                            <label>Password:</label>
+                            <input name="password" type="password" placeholder="Password"/>
+                            <label>&nbsp;</label> {/* Equalize spacing between inputs and button */}
+                            <button type="submit" disabled={this.state.isLoading}>Login</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         )
