@@ -22,6 +22,10 @@ class Landing extends React.Component {
         };
     }
 
+    componentDidMount() {
+        // this.props.sendAuthenticationCheckRequest();
+    }
+
     handleChange = (event) => {
         // console.log(event);
         console.log(event.target.name, event.target.value);

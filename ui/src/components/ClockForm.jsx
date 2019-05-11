@@ -64,7 +64,7 @@ class ClockForm extends React.Component {
         return (
             <div className={styles.clockPlaceholder}>
                 <h1>Countdown to:</h1>
-                <form onSubmit={this.handleSubmit} className={styles.form}>
+                <form className={styles.form} onSubmit={this.handleSubmit}>
                     <input
                         name="countdownEndDate"
                         type="date"

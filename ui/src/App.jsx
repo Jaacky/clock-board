@@ -26,7 +26,8 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        this.props.sendAuthenticationCheckRequest();
+        // Fires a history push event after success/fail, which will cause component to remount and fires this again -> infinite loop
+        // this.props.sendAuthenticationCheckRequest();
     }
 
     render() {
@@ -42,8 +43,9 @@ class App extends React.Component {
                     sendLogoutRequest={this.props.sendLogoutRequest}
                 />
                 <Switch>
-                    <RouteWrapper path="/" component={Landing}/>
-                    {/* <Route exact path="/" component={}/> */}
+                    <RouteWrapper exact path="/" component={Landing}
+                        sendAuthenticationCheckRequest={this.props.sendAuthenticationCheckRequest}
+                    />
                     <RouteWrapper path="/register" component={Registration}
                         sendRegistrationRequest={this.props.sendRegistrationRequest}
                     />
@@ -54,7 +56,9 @@ class App extends React.Component {
                         sendVerificationRequest={this.props.sendVerificationRequest}
                         user={this.props.user}
                     />
-                    <RouteWrapper path="/dashboard" component={Dashboard}/>
+                    <RouteWrapper path="/dashboard" component={Dashboard}
+                        sendAuthenticationCheckRequest={this.props.sendAuthenticationCheckRequest}
+                    />
                 </Switch>
             </div>
         )

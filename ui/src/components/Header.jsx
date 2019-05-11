@@ -13,9 +13,6 @@ class Header extends React.Component {
     }
 
     render() {
-        console.log("Header props user", this.props.user);
-        console.log(this.props.user.email);
-
         let homeLink = (this.props.user.email) ? "/dashboard" : "/";
 
         let links = [
