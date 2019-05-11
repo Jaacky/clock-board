@@ -84,9 +84,10 @@ $nav_height: 100px;
     .signUp {
         border: 2px solid $primary_light;
         // transition: margin-bottom 2s ease;
-        &:hover{
+        &:hover {
             margin-bottom: 2px;
-            // background-color: $primary_light_fade;
+            // color: $primary_dark;
+            background-color: $primary_dark_fade;
         }
     }
 }
@@ -102,16 +103,100 @@ $nav_height: 100px;
         background-color: $primary_light;
         box-shadow: 0px 1px 5px hsla(0, 0%, 0%, 0.15);
         border-radius: 3px;
+
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+
+        input, button {
+            flex: 0 1 100%;
+            text-align: center;
+            box-shadow: 0px 1px 1px hsla(0, 0%, 0%, 0.25);
+        }
+
+        button {
+            margin-top: 8px;
+            font-family: "Arkipelago", sans-serif;
+            font-size: ms(1);
+            transition: box-shadow 0.5s ease;
+
+            color: $primary_light;
+            background-color: $primary_dark;
+
+            &:hover {
+                box-shadow: 1px 1px 1px hsla(0, 0%, 0%, 0.55);
+                margin-bottom: 0;
+
+                // color: $primary_dark;
+                background-color: $primary_dark_hover;
+                // border-bottom: 0;
+                // color: $primary_dark;
+            }
+        }
+
+        button.secondary {
+            background-color: transparent;
+            color: $primary_dark_fade;
+            font-size: ms(1);
+            margin-top: 12px;
+            padding: 12px 20px;
+            box-shadow: none;
+    
+            &:hover {
+                color: $primary_dark;
+            }
+        }
+
+        .form {
+            flex: 0 1 100%;
+            display: flex;
+            flex-wrap: wrap;
+
+            input, button {
+                margin-top: 6px;
+            }
+
+            input {
+                background-color: hsla(0, 100%, 100%, 0.65);
+                color: $primary_dark;
+                font-size: ms(0);
+                padding: 8px;
+                border: 0;
+    
+                &::-webkit-datetime-edit,
+                &::-webkit-clear-button,
+                &::-webkit-inner-spin-button,
+                &::-webkit-calendar-picker-indicator
+                {
+                    opacity: 1;
+                }
+    
+                &:first-of-type {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        .cta {
+            flex: 0 1 100%;
+            text-align: center;
+        }
     }
 
     .clock {
         * {
             text-align: center;
             color: $primary_dark;
+            flex: 0 1 100%;
+        }
+
+        .countdown {
+            display: flex;
         }
     
         .time {
-            display: inline-block;
+            flex: 0 1 25%;
             padding: 6px;
     
             div {
@@ -123,10 +208,6 @@ $nav_height: 100px;
     }
     
     .clockPlaceholder {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-    
         h1, h2 {
             font-family: "Arkipelago", sans-serif;
             text-align: center;
@@ -134,78 +215,7 @@ $nav_height: 100px;
         }
 
         h1 {
-            flex-basis: 100%;
-        }
-
-        .form {
-            flex-basis: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            
-            input, button {
-                flex-basis: 100%;
-                color: $primary_dark;
-                text-align: center;
-                margin-top: 6px;
-                background-color: hsla(0, 100%, 100%, 0.65);
-                box-shadow: 0px 1px 1px hsla(0, 0%, 0%, 0.25);
-            }
-
-            input {
-                font-size: ms(0);
-                padding: 8px;
-                border: 0;
-
-                &::-webkit-datetime-edit,
-                &::-webkit-clear-button,
-                &::-webkit-inner-spin-button,
-                &::-webkit-calendar-picker-indicator
-                {
-                    opacity: 1;
-                }
-
-                &:first-of-type {
-                    margin-top: 0;
-                }
-            }
-
-            button {
-                font-family: "Arkipelago", sans-serif;
-                font-size: ms(1);
-                transition: box-shadow 0.5s ease;
-                &:hover {
-                    box-shadow: 1px 1px 1px hsla(0, 0%, 0%, 0.55);
-                }
-            }
-        }
-
-        .cta {
-            flex-basis: 100%;
-            text-align: center;
-
-            button {
-                background-color: transparent;
-                color: $primary_dark_fade;
-                font-size: ms(1);
-                margin-top: 12px;
-                padding: 12px 20px;
-        
-                &:hover {
-                    color: $primary_dark;
-                }
-            }
-
-            .signUp {
-                color: $primary_dark;
-                border: 2px solid $primary_dark;
-
-                &:hover{
-                    margin-bottom: 0;
-                    // border-bottom: 0;
-                    color: $primary_light;
-                    background-color: $primary_dark;
-                }
-            }
+            flex: 0 1 100%;
         }
     }
 }
@@ -216,6 +226,6 @@ $nav_height: 100px;
     align-items: center;
 
     .clocks {
-        flex-basis: 100%;
+        flex: 0 1 100%;
     }
 }

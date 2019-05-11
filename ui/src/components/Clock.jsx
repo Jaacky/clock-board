@@ -64,9 +64,9 @@ export default class Clock extends React.Component {
 
         return (
             <div key={this.props.endTime} className={styles.clock}>
-                <p>Now: {this.state.now.toISOString()}</p>
+                {/* <p>Now: {this.state.now.toISOString()}</p> */}
                 {/* <p>End: {this.props.endTime.toISOString()}</p> */}
-                <div>
+                <div className={styles.countdown}>
                     <div className={styles.time}>
                         <div>{days}</div>
                         <div>days</div>
@@ -87,6 +87,7 @@ export default class Clock extends React.Component {
                 <div>
                     Until: {this.props.endTime.toLocaleString()}
                 </div>
+                <button>Stop</button>
             </div>
         )
     }
