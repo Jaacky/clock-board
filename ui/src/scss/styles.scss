@@ -99,7 +99,7 @@ $nav_height: 100px;
     margin: 25px 45px;
 
     .clockBox {
-        flex: 0 1 33.33%;
+        flex: 0 1 30%;
         padding: 12px;
     }
     .clock, .clockPlaceholder {
@@ -186,10 +186,16 @@ $nav_height: 100px;
         .cta {
             flex: 0 1 100%;
             text-align: center;
+
+            .signUp {
+                padding: 6px 16px;
+            }
         }
     }
 
     .clock {
+        position: relative;
+
         * {
             text-align: center;
             color: $primary_dark;
@@ -198,29 +204,49 @@ $nav_height: 100px;
 
         .countdown {
             display: flex;
+            margin-bottom: 6px;
         }
     
         .time {
             flex: 0 1 25%;
-            padding: 6px;
+            // padding: 6px;
     
             div {
-                padding: 3px;
-                font-family: "Arkipelago", sans-serif;
+                // padding: 3px;
+                // font-family: "Arkipelago", sans-serif;
                 font-size: ms(1);
+            }
+
+            .label {
+                font-size: ms(0);
+            }
+        }
+
+        .remove {
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            button {
+                background-color: transparent;
+                margin: -5px 5px 0 0;
+                padding: 0 5px;
+                color: $primary_dark;
+                box-shadow: 0 0 0;
+
+                &:hover {
+                    color: $accent;
+                }
             }
         }
     }
     
     .clockPlaceholder {
-        h1, h2 {
-            font-family: "Arkipelago", sans-serif;
+        h2 {
+            // font-family: "Arkipelago", sans-serif;
+            flex: 0 1 100%;
             text-align: center;
             color: $primary_dark;
-        }
-
-        h1 {
-            flex: 0 1 100%;
         }
     }
 }

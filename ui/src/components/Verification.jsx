@@ -25,8 +25,8 @@ export default class Verification extends React.Component {
                 <div className={styles.clockBox}>
                     <div className={styles.clockPlaceholder}>
                         <form className={styles.form} onSubmit={this.handleConfirmationSubmit}>
-                            <h1>Verification</h1>
-                            <label>Confirmation code:</label>
+                            <h2>Verification</h2>
+                            <label>Code:</label>
                             <input
                                 autoFocus
                                 name="confirmationCode"

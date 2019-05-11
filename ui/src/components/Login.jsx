@@ -55,7 +55,7 @@ class Login extends React.Component {
                 <div className={styles.clockBox}>
                     <div className={styles.clockPlaceholder}>
                         <form className={styles.form} onSubmit={this.handleSubmit}>
-                            <h1>Login</h1>
+                            <h2>Sign In</h2>
                             <label>Email:</label>
                             <input name="email" type="email" placeholder="Email"/>
                             <label>Password:</label>

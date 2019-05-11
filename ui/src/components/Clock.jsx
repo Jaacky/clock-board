@@ -72,25 +72,31 @@ export default class Clock extends React.Component {
                     <div className={styles.countdown}>
                         <div className={styles.time}>
                             <div>{days}</div>
-                            <div>days</div>
+                            <div className={styles.label}>d</div>
                         </div>
+                        {/* <div className={styles.time}>
+                            <div>{hours}:{minutes}:{seconds}</div>
+                            <div className={styles.label}>hh:mm:ss</div>
+                        </div> */}
                         <div className={styles.time}>
                             <div>{hours}</div>
-                            <div>hours</div>
+                            <div className={styles.label}>h</div>
                         </div>
                         <div className={styles.time}>
                             <div>{minutes}</div>
-                            <div>minutes</div>
+                            <div className={styles.label}>m</div>
                         </div>
                         <div className={styles.time}>
                             <div>{seconds}</div>
-                            <div>seconds</div>
+                            <div className={styles.label}>s</div>
                         </div>
                     </div>
                     <div>
                         Until: {this.props.endTime.toLocaleString()}
                     </div>
-                    <button onClick={this.props.onStop}>Stop</button>
+                    <div className={styles.remove}>
+                        <button onClick={this.props.onStop}>x</button>
+                    </div>
                 </div>
             </div>
         )

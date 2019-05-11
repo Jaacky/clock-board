@@ -77,7 +77,7 @@ class Landing extends React.Component {
             return (
                 <div className={styles.clockBox}>
                     <div className={styles.clockPlaceholder}>
-                        <h1>To create more please:</h1>
+                        <h2>To create more please:</h2>
                         <div className={styles.cta}>
                             <Link key="headerRegister" to="/register">
                                 <button className={styles.signUp}>Sign Up</button>
@@ -127,19 +127,6 @@ class Landing extends React.Component {
                 <div className={styles.clocks}>
                     {clocks}
                     {this.renderForm()}
-                    {/* <div className={styles.clockPlaceholder}>
-                        <h1>To create more please:</h1>
-                        <div className={styles.cta}>
-                            <Link key="headerRegister" to="/register">
-                                <button className={styles.signUp}>Sign Up</button>
-                            </Link>
-                        </div>
-                        <div className={styles.cta}>
-                            <Link key="headerLogin" to="/login">
-                                <button className={styles.secondary}>Login</button>
-                            </Link>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         )

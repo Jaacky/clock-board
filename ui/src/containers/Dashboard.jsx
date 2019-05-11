@@ -25,6 +25,10 @@ class Dashboard extends React.Component {
         });
     }
 
+    handlePersistentClockStop = (clock) => {
+        console.log("Hello");
+    }
+
     renderError() {
         if (this.props.error.flag) {
             return (
@@ -59,13 +63,16 @@ class Dashboard extends React.Component {
         }
 
         let clocks = this.props.clocks.map((clock) => (
-            <Clock endTime={new Date(clock["ends_at"])}/>
+            <Clock
+                endTime={new Date(clock["ends_at"])}
+                onStop={this.handlePersistentClockStop}
+            />
         ))
 
         let testClocks = [
-            // <Clock endTime={new Date("2019-05-17T00:00:00.000Z")} />,
-            // <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
-            // <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
+            <Clock endTime={new Date("2019-05-17T00:00:00.000Z")} />,
+            <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
+            <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
             // <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
             // <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
         ]

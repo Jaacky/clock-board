@@ -41,7 +41,7 @@ export default class Registration extends React.Component {
                 <div className={styles.clockBox}>
                     <div className={styles.clockPlaceholder}>
                         <form className={styles.form} onSubmit={this.handleSubmit}>
-                            <h1>Sign Up</h1>
+                            <h2>Sign Up</h2>
                             <label>Email:</label>
                             <input
                                 autoFocus
