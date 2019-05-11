@@ -48,10 +48,13 @@ button {
     cursor: pointer;
 }
 
+$nav_height: 100px;
+
 .header {
     display: flex;
     align-items: center;
     width: 100%;
+    height: $nav_height;
     padding: 20px;
 
     .logo {
@@ -207,5 +210,15 @@ button {
                 }
             }
         }
+    }
+}
+
+.landing {
+    height: calc(100vh - #{$nav_height});
+    display: flex;
+    align-items: center;
+
+    .clocks {
+        flex-basis: 100%;
     }
 }
