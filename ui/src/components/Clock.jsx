@@ -87,7 +87,7 @@ export default class Clock extends React.Component {
                 <div>
                     Until: {this.props.endTime.toLocaleString()}
                 </div>
-                <button>Stop</button>
+                <button onClick={this.props.onStop}>Stop</button>
             </div>
         )
     }

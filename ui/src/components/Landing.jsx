@@ -13,7 +13,11 @@ class Landing extends React.Component {
         this.state = {
             countdownEndDate: "",
             countdownEndTime: "",
-            clocks: [],
+            clocks: [
+                {
+                    ends_at: "2019-07-13T00:00:00.000Z"
+                },
+            ],
             error: ""
         };
     }
@@ -58,6 +62,12 @@ class Landing extends React.Component {
         });
     }
 
+    handleInMemoryClockStop = () => {
+        this.setState({
+            clocks: []
+        });
+    }
+
     renderForm() {
         if (this.state.clocks.length > 0) {
             return (
@@ -98,18 +108,17 @@ class Landing extends React.Component {
             )
         }
         let clocks = this.state.clocks.map((clock) => (
-            <Clock endTime={new Date(clock["ends_at"])}/>
+            <Clock
+                endTime={new Date(clock["ends_at"])}
+                onStop={this.handleInMemoryClockStop}
+            />
         ))
 
-        let testClocks = [
-            // <Clock endTime={new Date("2019-06-13T00:00:00.000Z")} />,
-        ]
         return (
             <div className={styles.landing}>
                 {this.renderError()}
                 
                 <div className={styles.clocks}>
-                    {testClocks}
                     {clocks}
                     {this.renderForm()}
                     {/* <div className={styles.clockPlaceholder}>
