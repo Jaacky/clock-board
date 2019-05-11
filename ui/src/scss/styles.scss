@@ -73,8 +73,6 @@ button {
         font-size: ms(0);
         padding: 6px 8px;
 
-        // transition: border-bottom 2s ease;
-
         &:hover {
             border-bottom: 2px solid $primary_light;
         }
@@ -88,7 +86,6 @@ button {
             // background-color: $primary_light_fade;
         }
     }
-
 }
 
 .clocks {
@@ -127,12 +124,14 @@ button {
         flex-wrap: wrap;
         align-items: center;
     
-        h1 {
-            flex-basis: 100%;
+        h1, h2 {
             font-family: "Arkipelago", sans-serif;
             text-align: center;
             color: $primary_dark;
-            
+        }
+
+        h1 {
+            flex-basis: 100%;
         }
 
         .form {
@@ -173,6 +172,38 @@ button {
                 transition: box-shadow 0.5s ease;
                 &:hover {
                     box-shadow: 1px 1px 1px hsla(0, 0%, 0%, 0.55);
+                }
+            }
+        }
+
+        .cta {
+            flex-basis: 100%;
+            text-align: center;
+
+            button {
+                background-color: transparent;
+                color: $primary_dark_fade;
+                font-size: ms(0);
+                padding: 6px 8px;
+        
+                &:hover {
+                    color: $primary_dark;
+                    margin-bottom: -2px;
+                    border-bottom: 2px solid $primary_dark;
+                    // color: $primary_light;
+                    // background-color: $primary_dark;
+                }
+            }
+
+            .signUp {
+                color: $primary_dark;
+                border: 2px solid $primary_dark;
+                // transition: margin-bottom 2s ease;
+                &:hover{
+                    margin-bottom: 0;
+                    // border-bottom: 0;
+                    color: $primary_light;
+                    background-color: $primary_dark;
                 }
             }
         }

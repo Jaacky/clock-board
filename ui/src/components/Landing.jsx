@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
+
 import styles from '../scss/styles.scss';
 
 import Clock from '../components/Clock.jsx';
@@ -59,10 +61,18 @@ class Landing extends React.Component {
     renderForm() {
         if (this.state.clocks.length > 0) {
             return (
-                <div>
-                    <h2>Please login to:</h2>
-                    <p>Create more clocks</p>
-                    <p>Save clocks</p>
+                <div className={styles.clockPlaceholder}>
+                    <h1>To create more please:</h1>
+                    <div className={styles.cta}>
+                        <Link key="headerRegister" to="/register">
+                            <button className={styles.signUp}>Sign Up</button>
+                        </Link>
+                    </div>
+                    <div className={styles.cta}>
+                        <Link key="headerLogin" to="/login">
+                            <button>Login</button>
+                        </Link>
+                    </div>
                 </div>
             )
         }
@@ -87,16 +97,12 @@ class Landing extends React.Component {
                 <h1>Loading clocks...</h1>
             )
         }
-        let clocks = this.state.clocks.length == 0
-            ? <div className={styles.clockPlaceholder}>
-                <h1>Please add a clock</h1>
-            </div>
-            : this.state.clocks.map((clock) => (
-                <Clock endTime={new Date(clock["ends_at"])}/>
-            ))
+        let clocks = this.state.clocks.map((clock) => (
+            <Clock endTime={new Date(clock["ends_at"])}/>
+        ))
 
         let testClocks = [
-            <Clock endTime={new Date("2019-06-13T00:00:00.000Z")} />,
+            // <Clock endTime={new Date("2019-06-13T00:00:00.000Z")} />,
         ]
         return (
             <div className={styles.landing}>
