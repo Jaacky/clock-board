@@ -115,7 +115,7 @@ router.post('/clocks', async (req, res) => {
 router.post('/clocks/add', async (req, res) => {
     try {
         let email = req.jwtClaims.email;
-        let ends_at = "2019-07-13T00:00:00.000Z";
+        let ends_at = req.body.ends_at;
         let result = await addClock(email, ends_at);
         let clock = result[0];
         console.log("Added this clock: ", clock);

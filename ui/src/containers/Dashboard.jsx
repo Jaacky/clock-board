@@ -7,6 +7,7 @@ import ClockForm from 'components/ClockForm';
 
 import {
     clocksRequest,
+    addClockRequest,
 } from 'actions';
 
 class Dashboard extends React.Component {
@@ -20,9 +21,12 @@ class Dashboard extends React.Component {
     }
 
     handlePersistentClockSubmit = (clock) => {
-        this.setState({
-            clocks: [...this.state.clocks, clock],
-        });
+        let { sendAddClockRequest } = this.props;
+        let isoTimeString = clock.ends_at.toISOString();
+        sendAddClockRequest(isoTimeString);
+        // this.setState({
+        //     clocks: [...this.state.clocks, clock],
+        // });
     }
 
     handlePersistentClockStop = (clock) => {
@@ -70,9 +74,9 @@ class Dashboard extends React.Component {
         ))
 
         let testClocks = [
-            <Clock endTime={new Date("2019-05-17T00:00:00.000Z")} />,
-            <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
-            <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
+            // <Clock endTime={new Date("2019-05-17T00:00:00.000Z")} />,
+            // <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
+            // <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
             // <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
             // <Clock endTime={new Date("2019-05-13T00:00:00.000Z")} />,
         ]
@@ -104,6 +108,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         sendClocksRequest: (email) => {
             dispatch(clocksRequest(email));
+        },
+        sendAddClockRequest: (ends_at) => {
+            dispatch(addClockRequest(ends_at));
         },
     }
 }

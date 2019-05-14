@@ -10,6 +10,7 @@ import {
 
 import {
     watchClocksRequest,
+    watchAddClockRequest,
 } from './clocks';
 
 export default function* rootSaga() {
@@ -20,5 +21,6 @@ export default function* rootSaga() {
         watchRegistration(),
         watchVerification(),
         watchClocksRequest(),
+        watchAddClockRequest(),
     ]);
 };

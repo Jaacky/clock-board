@@ -17,6 +17,9 @@ import {
     CLOCKS_REQUEST,
     CLOCKS_REQUEST_SUCCESS,
     CLOCKS_REQUEST_FAIL,
+    ADD_CLOCK_REQUEST,
+    ADD_CLOCK_REQUEST_SUCCESS,
+    ADD_CLOCK_REQUEST_FAIL,
 } from "./types";
 
 export function authenticationCheckRequest(history) {
@@ -147,6 +150,27 @@ export function clocksRequestSucceeded(clocks) {
 export function clocksRequestFailed(message) {
     return {
         type: CLOCKS_REQUEST_FAIL,
+        message,
+    };
+}
+
+export function addClockRequest(ends_at) {
+    return {
+        type: ADD_CLOCK_REQUEST,
+        ends_at,
+    };
+}
+
+export function addClockRequestSucceeded(clock) {
+    return {
+        type: ADD_CLOCK_REQUEST_SUCCESS,
+        clock,
+    };
+}
+
+export function addClockRequestFailed(message) {
+    return {
+        type: ADD_CLOCK_REQUEST_FAIL,
         message,
     };
 }

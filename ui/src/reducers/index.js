@@ -12,6 +12,9 @@ import {
     CLOCKS_REQUEST,
     CLOCKS_REQUEST_SUCCESS,
     CLOCKS_REQUEST_FAIL,
+    ADD_CLOCK_REQUEST,
+    ADD_CLOCK_REQUEST_SUCCESS,
+    ADD_CLOCK_REQUEST_FAIL,
 } from 'actions/types';
 
 const user = (state = {}, action) => {
@@ -43,6 +46,8 @@ const clocks = (state = [], action) => {
         case CLOCKS_REQUEST_SUCCESS:
             console.log("action from clocks request successful: ", action);
             return [...action.clocks];
+        case ADD_CLOCK_REQUEST_SUCCESS:
+            return [...state, action.clock];
         default:
             return state;
     };
@@ -60,6 +65,11 @@ const loading = (state = {app: false, dashboard: false}, action) => {
         case CLOCKS_REQUEST_SUCCESS:
         case CLOCKS_REQUEST_FAIL:
             return { ...state, dashboard: false };
+        case ADD_CLOCK_REQUEST:
+            return { ...state, clockForm: true };
+        case ADD_CLOCK_REQUEST_SUCCESS:
+        case ADD_CLOCK_REQUEST_FAIL:
+            return { ...state, clockForm: false };
         default:
             return state;
     };
