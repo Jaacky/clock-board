@@ -130,4 +130,22 @@ router.post('/clocks/add', async (req, res) => {
     }
 });
 
+router.post('/clocks/remove', async (req, res) => {
+    try {
+        let email = req.jwtClaims.email;
+        let ends_at = "2019-07-13T00:00:00.000Z";
+        let id = req.body.id;
+        let result = await removeClock(email, id, ends_at);
+        console.log("Result from remove", result);
+        res.status(200).json({
+            result
+        })
+    } catch(err) {
+        console.log("Error from clock remove", err);
+        res.status(500).json({
+            "error": "Error removing clock for user"
+        });
+    }
+});
+
 export default router;

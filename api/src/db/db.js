@@ -13,3 +13,13 @@ export const addClock = async (email, ends_at) => {
                         ends_at,
                     });
 }
+
+export const removeClock = async(email, id, ends_at) => {
+    return await db('clocks')
+                    .where({
+                        id,
+                        email,
+                        ends_at,
+                    })
+                    .del();
+}
