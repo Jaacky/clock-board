@@ -2,7 +2,7 @@ import express from 'express';
 import jose from 'node-jose';
 import { awsKeys, clientId } from '../config/aws';
 
-import { getClocks } from '../db/db';
+import { getClocks, addClock } from '../db/db';
 
 const router = express.Router();
 
@@ -99,7 +99,8 @@ router.post('/', (req, res) => {
 // https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.js
 router.post('/clocks', async (req, res) => {
     try {
-        let clocks = await getClocks(req.jwtClaims.email);
+        let email = req.jwtClaims.email;
+        let clocks = await getClocks(email);
         res.status(200).json({
             "clocks": clocks
         });
@@ -107,6 +108,24 @@ router.post('/clocks', async (req, res) => {
         console.log("err in post clock catch block: ", err);
         res.status(500).json({
             "error": "Error retrieving clocks for user",
+        });
+    }
+});
+
+router.post('/clocks/add', async (req, res) => {
+    try {
+        let email = req.jwtClaims.email;
+        let ends_at = "2019-07-13T00:00:00.000Z";
+        let result = await addClock(email, ends_at);
+        let clock = result[0];
+        console.log("Added this clock: ", clock);
+        res.status(200).json({
+            clock,
+        });
+
+    } catch(err) {
+        res.status(500).json({
+            "error": "Error adding clock for user",
         });
     }
 });
