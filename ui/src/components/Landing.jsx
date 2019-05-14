@@ -115,6 +115,7 @@ class Landing extends React.Component {
         }
         let clocks = this.state.clocks.map((clock) => (
             <Clock
+                id={5}
                 endTime={new Date(clock["ends_at"])}
                 onStop={this.handleInMemoryClockStop}
             />

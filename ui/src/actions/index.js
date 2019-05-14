@@ -20,6 +20,9 @@ import {
     ADD_CLOCK_REQUEST,
     ADD_CLOCK_REQUEST_SUCCESS,
     ADD_CLOCK_REQUEST_FAIL,
+    REMOVE_CLOCK_REQUEST,
+    REMOVE_CLOCK_REQUEST_SUCCESS,
+    REMOVE_CLOCK_REQUEST_FAIL,
 } from "./types";
 
 export function authenticationCheckRequest(history) {
@@ -171,6 +174,29 @@ export function addClockRequestSucceeded(clock) {
 export function addClockRequestFailed(message) {
     return {
         type: ADD_CLOCK_REQUEST_FAIL,
+        message,
+    };
+}
+
+export function removeClockRequest(id, ends_at) {
+    return {
+        type: REMOVE_CLOCK_REQUEST,
+        id,
+        ends_at,
+    };
+}
+
+export function removeClockRequestSucceeded(id, ends_at) {
+    return {
+        type: REMOVE_CLOCK_REQUEST_SUCCESS,
+        id,
+        ends_at,
+    };
+}
+
+export function removeClockRequestFailed(message) {
+    return {
+        type: REMOVE_CLOCK_REQUEST_FAIL,
         message,
     };
 }

@@ -2,7 +2,7 @@ import express from 'express';
 import jose from 'node-jose';
 import { awsKeys, clientId } from '../config/aws';
 
-import { getClocks, addClock } from '../db/db';
+import { getClocks, addClock, removeClock } from '../db/db';
 
 const router = express.Router();
 
@@ -133,13 +133,28 @@ router.post('/clocks/add', async (req, res) => {
 router.post('/clocks/remove', async (req, res) => {
     try {
         let email = req.jwtClaims.email;
-        let ends_at = "2019-07-13T00:00:00.000Z";
-        let id = req.body.id;
+        let { id, ends_at } = req.body;
         let result = await removeClock(email, id, ends_at);
         console.log("Result from remove", result);
-        res.status(200).json({
-            result
-        })
+        if (result == 1) {
+            res.status(200).json({
+                id
+            });
+        } else if (result > 1) {
+            console.log("result greater than 1...");
+            res.status(500).json({
+                id,
+                ends_at,
+                result,
+            });
+        } else {
+            console.log("No clock removed");
+            res.status(500).json({
+                id,
+                ends_at,
+                result,
+            });
+        }
     } catch(err) {
         console.log("Error from clock remove", err);
         res.status(500).json({

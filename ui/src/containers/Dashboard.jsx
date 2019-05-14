@@ -8,6 +8,7 @@ import ClockForm from 'components/ClockForm';
 import {
     clocksRequest,
     addClockRequest,
+    removeClockRequest,
 } from 'actions';
 
 class Dashboard extends React.Component {
@@ -29,8 +30,10 @@ class Dashboard extends React.Component {
         // });
     }
 
-    handlePersistentClockStop = (clock) => {
-        console.log("Hello");
+    handlePersistentClockStop = (id, ends_at) => {
+        let { sendRemoveClockRequest } = this.props;
+        sendRemoveClockRequest(id, ends_at);
+        // console.log("Hello");
     }
 
     renderError() {
@@ -68,6 +71,7 @@ class Dashboard extends React.Component {
 
         let clocks = this.props.clocks.map((clock) => (
             <Clock
+                id={clock["id"]}
                 endTime={new Date(clock["ends_at"])}
                 onStop={this.handlePersistentClockStop}
             />
@@ -111,6 +115,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         sendAddClockRequest: (ends_at) => {
             dispatch(addClockRequest(ends_at));
+        },
+        sendRemoveClockRequest: (id, ends_at) => {
+            console.log("send remove clock request, id, ends_at", id, ends_at);
+            dispatch(removeClockRequest(id, ends_at));
         },
     }
 }

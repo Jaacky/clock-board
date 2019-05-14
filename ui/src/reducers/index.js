@@ -15,6 +15,9 @@ import {
     ADD_CLOCK_REQUEST,
     ADD_CLOCK_REQUEST_SUCCESS,
     ADD_CLOCK_REQUEST_FAIL,
+    REMOVE_CLOCK_REQUEST,
+    REMOVE_CLOCK_REQUEST_SUCCESS,
+    REMOVE_CLOCK_REQUEST_FAIL,
 } from 'actions/types';
 
 const user = (state = {}, action) => {
@@ -48,6 +51,14 @@ const clocks = (state = [], action) => {
             return [...action.clocks];
         case ADD_CLOCK_REQUEST_SUCCESS:
             return [...state, action.clock];
+        case REMOVE_CLOCK_REQUEST_SUCCESS:
+            console.log("remove clock success, action.id, action.ends_at", action.id, action.ends_at)
+            return state.filter(clock => {
+                console.log(clock.id !== action.id && clock.ends_at !== action.ends_at);
+                console.log("id: ", clock.id, action.id, clock.id !== action.id);
+                console.log("ends_at: ", clock.ends_at, action.ends_at, clock.ends_at !== action.ends_at);
+                return clock.id !== action.id && clock.ends_at !== action.ends_at;
+            });
         default:
             return state;
     };
@@ -70,6 +81,11 @@ const loading = (state = {app: false, dashboard: false}, action) => {
         case ADD_CLOCK_REQUEST_SUCCESS:
         case ADD_CLOCK_REQUEST_FAIL:
             return { ...state, clockForm: false };
+        // case REMOVE_CLOCK_REQUEST:
+        //     return { ...state, clockForm: true };
+        // case REMOVE_CLOCK_REQUEST_SUCCESS:
+        // case REMOVE_CLOCK_REQUEST_FAIL:
+        //     return { ...state, clockForm: false };
         default:
             return state;
     };

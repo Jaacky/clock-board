@@ -31,6 +31,12 @@ export default class Clock extends React.Component {
         });
     }
 
+    handleRemove = () => {
+        let { id, endTime } = this.props;
+        console.log("clock id, endtime", id, endTime);
+        this.props.onStop(id, endTime.toISOString());
+    }
+
     componentDidMount() {
         this.intervalId = setInterval(
             () => this.tick(),
@@ -47,8 +53,11 @@ export default class Clock extends React.Component {
             return (
                 <div key={this.props.endTime} className={styles.clockBox}>
                     <div className={styles.clock}>
-                        <h1>Lifted off!</h1>
+                        <h1>Lifted off! id: {this.props.id}</h1>
                         <p>At {this.props.endTime.toLocaleString()}</p>
+                        <div className={styles.remove}>
+                            <button onClick={this.handleRemove}>x</button>
+                        </div>
                     </div>
                 </div>
             )
@@ -92,10 +101,11 @@ export default class Clock extends React.Component {
                         </div>
                     </div>
                     <div>
-                        Until: {this.props.endTime.toLocaleString()}
+                        id: {this.props.id} Until: {this.props.endTime.toLocaleString()}
                     </div>
                     <div className={styles.remove}>
-                        <button onClick={this.props.onStop}>x</button>
+                        {/* <button onClick={this.props.onStop}>x</button> */}
+                        <button onClick={this.handleRemove}>x</button>
                     </div>
                 </div>
             </div>
